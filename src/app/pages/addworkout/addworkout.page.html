@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Workout</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button [routerLink]="['/']">Back</ion-button>
+  <h1>What days are you free?</h1>
+  <ion-list>
+    <ion-item *ngFor="let entry of form">
+      <ion-label>{{entry.val}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <h1>What times are you free?</h1>
+  <ion-item>
+    <ion-label>start time</ion-label>
+    <ion-datetime displayFormat="hh:mm a"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>end time</ion-label>
+    <ion-datetime displayFormat="hh:mm a"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Focus</ion-label>
+    <ion-select interface="popover">
+      <ion-select-option value="arms">Arms</ion-select-option>
+      <ion-select-option value="legs">Legs</ion-select-option>
+      <ion-select-option value="core">Core</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button color="danger">
+    <ion-icon name="close"></ion-icon>
+  </ion-button>
+  <ion-button color="success">
+    <ion-icon name="checkmark"></ion-icon>
+  </ion-button>
+  
+
+</ion-content>
