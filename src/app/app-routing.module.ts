@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'addworkout',
     loadChildren: () => import('./pages/addworkout/addworkout.module').then( m => m.AddworkoutPageModule)
   },
+  {
+    path: 'feedback',
+    loadChildren: () => import('./pages/feedback/feedback.module').then( m => m.FeedbackPageModule)
+  },
 ];
 @NgModule({
   imports: [

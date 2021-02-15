@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { WorkoutPageRoutingModule } from './workout-routing.module';
 
 import { WorkoutPage } from './workout.page';
+import { FeedbackPage } from '../feedback/feedback.page'
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { WorkoutPage } from './workout.page';
     IonicModule,
     WorkoutPageRoutingModule
   ],
-  declarations: [WorkoutPage]
+  declarations: [WorkoutPage, FeedbackPage]
 })
 export class WorkoutPageModule {}

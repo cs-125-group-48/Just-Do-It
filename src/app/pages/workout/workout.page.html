@@ -1,11 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Workout</ion-title>
+    <ion-icon [routerLink]="['/']" size="large" name="arrow-back" slot="start"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-button [routerLink]="['/']">Back</ion-button>
+  <!-- <ion-button [routerLink]="['/']">Back</ion-button> -->
   <ion-card>
     <ion-card-header>
       <ion-card-title>Today's Workout</ion-card-title>
@@ -16,9 +17,11 @@
   <h2>Duration: </h2>
 
   <ion-button color="danger">
+    <!-- TODO: when closing lower difficulty level -->
     <ion-icon name="close"></ion-icon>
   </ion-button>
-  <ion-button color="success">
+  <ion-button [routerLink]="['/feedback']" color="success">
+    <!-- TODO: add feedback page (also check heart rate) to adjust difficulty level later -->
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>
 </ion-content>

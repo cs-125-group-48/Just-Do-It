@@ -4,7 +4,8 @@
       Calendar
     </ion-title>
   </ion-toolbar>
-  <ion-navbar>
+  <button>Add Exercise</button>
+  <!-- <ion-navbar> -->
     <ion-title>{{viewTitle}}</ion-title>
     <ion-buttons end>
         <button ion-button [disabled]="isToday" (click)="today()">Today</button>
@@ -13,7 +14,7 @@
         <button ion-button (click)="changeMode('day')">D</button>
         <button ion-button (click)="loadEvents()">Load Events</button>
     </ion-buttons>
-  </ion-navbar>
+  <!-- </ion-navbar> -->
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -35,4 +36,5 @@
     step="30">
   </calendar>
   <!-- <calendar></calendar> -->
+  
 </ion-content>

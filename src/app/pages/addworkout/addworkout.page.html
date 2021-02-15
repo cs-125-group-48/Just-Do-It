@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Workout</ion-title>
+    <ion-title>Schedule Routine</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-button [routerLink]="['/']">Back</ion-button>
+  <!-- <ion-button [routerLink]="['/']">Back</ion-button> -->
   <h1>What days are you free?</h1>
   <ion-list>
     <ion-item *ngFor="let entry of form">
@@ -33,10 +33,11 @@
     </ion-select>
   </ion-item>
 
-  <ion-button color="danger">
+  <ion-button [routerLink]="['/']" color="danger">
     <ion-icon name="close"></ion-icon>
   </ion-button>
-  <ion-button color="success">
+  <ion-button [routerLink]="['/']" color="success"> 
+    <!-- success button is stub TODO: add action to button -->
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>
   
