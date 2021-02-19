@@ -3,11 +3,11 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
+import { CalendarPage } from './calendar.page';
 import { SearchPage } from '../pages/search/search.page'
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { CalendarPageRoutingModule } from './calendar-routing.module';
 import { NgCalendarModule  } from 'ionic2-calendar';
 
 @NgModule({
@@ -16,9 +16,9 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab2PageRoutingModule,
+    CalendarPageRoutingModule,
     NgCalendarModule
   ],
-  declarations: [Tab2Page, SearchPage]
+  declarations: [CalendarPage, SearchPage]
 })
-export class Tab2PageModule {}
+export class CalendarPageModule {}
