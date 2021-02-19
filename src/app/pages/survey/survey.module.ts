@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,4 +17,4 @@ import { SurveyPage } from './survey.page';
   ],
   declarations: [SurveyPage]
 })
-export class SurveyPageModule {}
+export class SurveyPageModule { }
