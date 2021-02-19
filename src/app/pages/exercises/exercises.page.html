@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Exercises</ion-title>
+    <ion-icon [routerLink]="['/']" size="large" name="arrow-back" slot="start"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar></ion-searchbar>
+  <ion-item *ngFor="let exercise of exercises | keyvalue" button (click)="test()">
+    <ion-label>{{exercise.key}}</ion-label>
+  </ion-item>
+</ion-content>
