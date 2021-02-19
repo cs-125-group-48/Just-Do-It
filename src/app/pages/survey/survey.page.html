@@ -1,0 +1,72 @@
+<ion-content>
+  <ion-slides pager="true">
+    <ion-slide>
+      <h2>Just Do It!</h2>
+      <b>Before your start your fitness journey we have a couple questions for you</b>
+    </ion-slide>
+
+    
+    <ion-slide>
+      <h2>Basic Information</h2>
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input slot="end" placeholder="First Name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Birth Date</ion-label>
+        <ion-datetime value="1990-02-19" placeholder="Select Date"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Weight</ion-label>
+        <ion-input slot="end" placeholder="lbs" inputmode="numeric" type="number" min="0"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Height</ion-label>
+        <ion-input slot="end" placeholder="ft" inputmode="numeric" type="number" min="0"></ion-input>
+        <ion-input slot="end" placeholder="in" inputmode="numeric" type="number" min="0"></ion-input>
+      </ion-item>
+
+    </ion-slide>
+
+    <ion-slide>
+      <h2>Developing your fitness level</h2>
+      <b>How active are you?</b>
+      <ion-radio-group  [(ngModel)]="something">
+        <ion-row>
+          <ion-col>
+               <ion-item>
+                  <ion-label>Highly Active</ion-label>
+                  <ion-radio mode="md" item-left value="A"></ion-radio>
+             </ion-item>
+           </ion-col>
+      
+          <ion-col>
+              <ion-item>
+                  <ion-label>Regularly Active</ion-label>
+                  <ion-radio mode="md" item-left value="B"></ion-radio>
+             </ion-item>
+          </ion-col>
+      
+          <ion-col>
+              <ion-item>
+                  <ion-label>Rarely Active</ion-label>
+                  <ion-radio mode="md" item-left value="C"></ion-radio>
+             </ion-item>
+          </ion-col>
+      
+      </ion-row>
+      </ion-radio-group>
+    </ion-slide>
+
+
+    <ion-slide>
+      <h2>Almost there!</h2>
+      <b>Ready to start your fitness journey?</b>
+      <ion-button [routerLink]="['/']">submit</ion-button>
+    </ion-slide>
+    
+  </ion-slides>
+</ion-content>
