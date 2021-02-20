@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import * as data from 'Exercises Metadata/Metadata.json';
 
@@ -8,16 +9,31 @@ import * as data from 'Exercises Metadata/Metadata.json';
 })
 
 export class ExercisesPage implements OnInit {
-  public exercises = data.default;
-  constructor() {
+  public exercises;
+  private searchbar;
+  private filterExercises;
+  public serachTerm;
 
+  public array;
+
+
+  constructor() {
+    this.exercises = data.default;
+    this.array = [];
   }
 
   ngOnInit() {
+    this.filteredExercises;
+    for(var i in this.exercises){ 
+      this.array.push([i, this.exercises[i]]);
+    }
   }
 
-  test(){
-    console.log("a");
+  filteredExercises() {
+    console.log(typeof(this.exercises));
+    this.exercises = this.exercises.filter(item => {
+      return item.name.toLowerCase().indexOf(this.serachTerm.toLowerCase()) > -1;
+    });
   }
 
 }
