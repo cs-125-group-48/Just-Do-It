@@ -39,4 +39,8 @@ export class StorageService {
     return this.storage.get('height');
   }
 
+  updateFitness(fitnessLevel:string) {
+    this.storage.set('fitness-level', fitnessLevel);
+  }
+
 }

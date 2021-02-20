@@ -85,7 +85,7 @@ export class CalendarPage {
       for (var i = 0; i < 50; i += 1) {
           var date = new Date();
           var eventType = Math.floor(Math.random() * 2);
-          var startDay = Math.floor(Math.random() * 90) - 45;
+          var startDay = Math.floor(Math.random() * 90);
           var endDay = Math.floor(Math.random() * 2) + startDay;
           var startTime;
           var endTime;
@@ -107,7 +107,7 @@ export class CalendarPage {
               startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
               endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
               events.push({
-                  title: 'Event - ' + i,
+                  title: 'Workout - ' + i,
                   startTime: startTime,
                   endTime: endTime,
                   allDay: false
@@ -115,6 +115,30 @@ export class CalendarPage {
           // }
       }
       return events;
+  }
+
+  createWorkoutEXAMPLE() {
+    var days = [22,24,26,1,3,]
+    var events = [];
+    for (var i = 0; i < 50; i += 1) {
+        var date = new Date();
+        var startDay = Math.floor(Math.random() * 90) - 45;
+        var endDay = Math.floor(Math.random() * 2) + startDay;
+        var startTime;
+        var endTime;
+        var startMinute = Math.floor(Math.random() * 24 * 60);
+        var endMinute = Math.floor(Math.random() * 180) + startMinute;
+        startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
+        endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
+        events.push({
+            title: 'Event - ' + i,
+            startTime: startTime,
+            endTime: endTime,
+            allDay: false
+            });
+        // }
+    }
+    return events;
   }
 
   onRangeChanged(ev) {
