@@ -3,11 +3,14 @@
     <ion-title>Exercises</ion-title>
     <ion-icon [routerLink]="['/']" size="large" name="arrow-back" slot="start"></ion-icon>
   </ion-toolbar>
-  <ion-searchbar></ion-searchbar>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-item *ngFor="let exercise of exercises | keyvalue" button (click)="test()">
+<ion-content fullscreen>
+  <!-- <ion-select interface="popover" (ionChange)=test()></ion-select> -->
+  <ion-item *ngFor="let exercise of filteredExercises() | keyvalue" button (click)="test()">
     <ion-label>{{exercise.key}}</ion-label>
   </ion-item>
 </ion-content>
