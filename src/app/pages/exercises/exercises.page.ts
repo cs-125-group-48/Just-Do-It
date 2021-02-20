@@ -12,28 +12,40 @@ export class ExercisesPage implements OnInit {
   public exercises;
   private searchbar;
   private filterExercises;
-  public serachTerm;
-
+  public searchTerm;
   public array;
 
 
   constructor() {
     this.exercises = data.default;
+    console.log()
     this.array = [];
   }
 
   ngOnInit() {
     this.filteredExercises;
     for(var i in this.exercises){ 
-      this.array.push([i, this.exercises[i]]);
+      this.array.push(i);
     }
+    // console.log(this.array)
   }
 
   filteredExercises() {
-    console.log(typeof(this.exercises));
-    this.exercises = this.exercises.filter(item => {
-      return item.name.toLowerCase().indexOf(this.serachTerm.toLowerCase()) > -1;
+    // console.log(this.searchTerm);
+    this.array = this.array.filter(item => {
+      return item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
     });
+  }
+
+  resetSearch() {
+    this.array = [];
+    for(var i in this.exercises){ 
+      this.array.push(i);
+    }
+  }
+
+  test() {
+
   }
 
 }

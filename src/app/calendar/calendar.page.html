@@ -4,7 +4,7 @@
       Calendar
     </ion-title>
   </ion-toolbar>
-  <button [routerLink]="['/search']">Add Exercise</button>
+  
   <!-- <ion-navbar> -->
     <ion-title>{{viewTitle}}</ion-title>
     <ion-buttons end>
@@ -23,6 +23,7 @@
       <ion-title size="large">Calendar</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-button [routerLink]="['/exercises']">Add Exercise</ion-button>
 
   <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
   <calendar [eventSource]="eventSource"
@@ -35,6 +36,7 @@
     (onTimeSelected)="onTimeSelected($event)"
     step="30">
   </calendar>
+  
   <!-- <calendar></calendar> -->
 
 </ion-content>
