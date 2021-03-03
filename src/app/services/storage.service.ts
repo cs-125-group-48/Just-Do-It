@@ -1,5 +1,9 @@
+// Local storage
+// To see local storage in chrome: go to Developer Tools, on top bar click on Application, then IndexedDB -> _ionicckv
+
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage'
+import { ProfileData } from '../data/ProfileData'
 
 @Injectable({
   providedIn: 'root'
@@ -8,39 +12,15 @@ export class StorageService {
 
   constructor(private storage: Storage) { }
 
-  updateProfile(name:string, weight:string, height:string, fitnessLevel:string, birthdate:string){
-    this.storage.set('name', name);
-    this.storage.set('birthdate', birthdate);
-    this.storage.set('weight', weight);
-    this.storage.set('height', height);
-    this.storage.set('fitness-level', fitnessLevel);
-    console.log("successfully added new profile");
-
-  }
-  getName():Promise<any>{
-    // let name:string;
-    return this.storage.get('name');
-  
+  updateUserProfile(name:string, birthdate:string, weight:string, height:string, fitnessLevel:string){
+    // to update user information into local storage
+    let profile = new ProfileData();
+    profile.updateProfile(name, birthdate, weight, height, fitnessLevel);
+    this.storage.set('profile', profile); // store in local storage
   }
 
-  getBirthdate():Promise<any> {
-    return this.storage.get('birthdate');
-  }
-
-  getFitness():Promise<any> {
-    return this.storage.get('fitness-level');
-  }
-
-  getWeight():Promise<any> {
-    return this.storage.get('weight');
-  }
-
-  getHeight():Promise<any> {
-    return this.storage.get('height');
-  }
-
-  updateFitness(fitnessLevel:string) {
-    this.storage.set('fitness-level', fitnessLevel);
+  getUserProfile():Promise<ProfileData> {
+    return this.storage.get('profile'); // get profile from local storage
   }
 
 }

@@ -1,3 +1,5 @@
+// Feedback Page: Page that loads once user checks complete on their workout
+
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -20,11 +22,11 @@ export class FeedbackPage implements OnInit {
 
   click() {
     // TODO: bug where this doesn't update the profile page
-    this.service.getFitness().then((result) => {
-      this.fitnessLevel = (parseInt(result.toString()) + parseInt(this.feedback)).toString();
-      console.log(this.fitnessLevel);
-      this.service.updateFitness(this.fitnessLevel);
-    });
+    // this.service.getFitness().then((result) => {
+    //   this.fitnessLevel = (parseInt(result.toString()) + parseInt(this.feedback)).toString();
+    //   console.log(this.fitnessLevel);
+    //   this.service.updateFitness(this.fitnessLevel);
+    // });
 
   }
 

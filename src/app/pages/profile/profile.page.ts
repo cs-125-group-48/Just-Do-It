@@ -1,6 +1,8 @@
+// Profile Page: Page containning user information
+
 import { Component } from '@angular/core';
-import { NativeAudio } from 'ionic-native';
 import { StorageService } from 'src/app/services/storage.service';
+import { ProfileData } from '../../data/ProfileData';
 
 @Component({
   selector: 'app-profile',
@@ -13,41 +15,30 @@ export class ProfilePage {
   public age:number;
   public weight:string;
   public height:string;
-  public birthdate:string;
   public fitnessLevel:string;
 
+  public profile:ProfileData;
+
   constructor(private storageService:StorageService) { 
-    this.service = storageService;
-    this.service.getName().then((result) => {
-      this.name = result.toString();
-    });
+    this.service = storageService; // access local storage
 
-    this.service.getWeight().then((result) => {
-      this.weight = result.toString();
-    });
-
-    this.service.getHeight().then((result) => {
-      this.height = result.toString();
-    });
-
-    this.service.getBirthdate().then((result) => {
-      this.age = this.getAge(result);
-    });
-
-    this.service.getFitness().then((result) => {
-      this.fitnessLevel = result.toString();
-    });
-
-    
+    this.service.getUserProfile().then((result) => {
+      // get information from local storage
+      this.name = result.name;
+      this.age = this.getAge(result.birthdate);
+      this.weight = result.weight;
+      this.height = result.height;
+      this.fitnessLevel = result.fitnessLevel;
+    })
   }
   
 
   ngOnInit() {
   }
 
-
   // https://www.codegrepper.com/code-examples/javascript/calculate+age+based+on+date+of+birth+in+javascript
   getAge(dateString):number
+  // calculates age from string of date
   {
       var today = new Date();
       var birthDate = new Date(dateString);

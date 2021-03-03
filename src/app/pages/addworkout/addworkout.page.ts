@@ -1,3 +1,5 @@
+// AddWorkout Page: Page for when the user wants to add a new workout routine to their schedule
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({

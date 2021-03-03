@@ -1,3 +1,5 @@
+// Workout Page: Page that contains the users current workout to be completed (with video)
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({

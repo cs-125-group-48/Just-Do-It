@@ -1,3 +1,5 @@
+// Search Page: (got turned into Exercises so this is a temporary page for now)
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({

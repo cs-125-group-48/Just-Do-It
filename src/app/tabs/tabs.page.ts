@@ -1,3 +1,5 @@
+// Tabs: tabs for navigating (Home, Calendar, Profile)
+
 import { Component } from '@angular/core';
 
 @Component({
