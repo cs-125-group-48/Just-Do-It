@@ -37,10 +37,10 @@
     </ion-select>
   </ion-item>
 
+  <!-- TODO: make user unable to select date before current date -->
   <ion-item>
     <ion-label>End date</ion-label>
-    <!-- TODO: make user unable to select date before current date -->
-    <ion-datetime></ion-datetime>
+    <ion-datetime [(ngModel)]="endDate"></ion-datetime>
   </ion-item>
 
   <ion-button *ngIf="showButton" [routerLink]="['/']" color="danger">

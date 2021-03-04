@@ -49,10 +49,15 @@ export class CalendarPage {
   constructor(private navController:NavController, private storageService:StorageService) {
       this.service = storageService;
 
+      this.loadEvents();
+
   }
 
   loadEvents() {
-      this.eventSource = this.createRandomEvents(); // TODO get events from localstorage
+    this.storageService.getEvents().then( events => { // get events from local storage and store into eventSource
+        console.log(events);
+        this.eventSource = events;
+    } );
   }
 
   onViewTitleChanged(title) {

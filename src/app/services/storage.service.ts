@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ProfileData } from 'src/app/data/ProfileData';
 import { WorkoutData } from 'src/app/data/WorkoutData';
+import { ScheduleData } from 'src/app/data/ScheduleData';
 
 @Injectable({
   providedIn: 'root'
@@ -60,9 +61,17 @@ export class StorageService {
     });
   }
 
-  // TODO: create set and get user schedule
-  setUserSchedule() {
+  async setUserSchedule(daysFree, startTime:string, endTime:string, focus, endDate:string) {
+    let schedule = new ScheduleData(daysFree, startTime, endTime, focus, endDate);
+    this.storage.set("schedule", schedule);
+  }
 
+  async setEvents(events:any) {
+    this.storage.set("events", events);
+  }
+
+  async getEvents() {
+    return await this.storage.get("events");
   }
 
 }

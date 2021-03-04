@@ -2,14 +2,16 @@
 
 export class EventData {
     public title:string;
-    public startTime:string;
-    public endTime:string;
+    public startTime:Date;
+    public endTime:Date;
     public type:string;
+    public workoutid:string;
 
-    setEvent(title:string, startTime:string, endTime:string, type:string) {
+    constructor(title:string, startTime:Date, endTime:Date, type:string, workoutid:string) {
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         this.type = type;
+        this.workoutid = workoutid;
     }
 }
