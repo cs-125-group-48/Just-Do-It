@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 // import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
+import * as data from 'Exercises Metadata/Metadata.json';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent {
     private router : Router,
     private storage : StorageService
   ) {
-    this.exercises = require('../../Exercises Metadata/Metadata.json'); // set exercises to json metadata
+    this.exercises = data.default; // set exercises to json metadata
     this.initializeApp();
   }
 

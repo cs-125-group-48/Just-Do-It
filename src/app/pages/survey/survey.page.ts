@@ -15,7 +15,7 @@ export class SurveyPage implements OnInit {
   public feet:string; // for height
   public inches:string; // for height
   public birthdate:string;
-  public service:StorageService; // for local storage
+  public service:StorageService; // for storage
 
   constructor(private storageService:StorageService) { 
     this.service = storageService;
@@ -29,7 +29,7 @@ export class SurveyPage implements OnInit {
   click() { // function for clicking submit button on survey form
     let height = "" + this.feet + "' " + this.inches + "\"";
     let fitnessLevel = this.active; // TEMPORARY, active will be used to calculate a different fitnesslevel in the future
-    this.service.updateUserProfile(this.name, this.birthdate, this.weight, height, fitnessLevel); // updates profile in local storage
+    this.service.updateUserProfile(this.name, this.birthdate, this.weight, height, fitnessLevel); // updates profile in storage
 
 
   }

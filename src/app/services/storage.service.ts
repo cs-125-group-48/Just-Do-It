@@ -1,4 +1,4 @@
-// Local storage
+// Storage
 // To see local storage in chrome: go to Developer Tools, on top bar click on Application, then IndexedDB -> _ionicckv
 
 import { Injectable } from '@angular/core';
@@ -15,18 +15,18 @@ export class StorageService {
   constructor(private storage: Storage) { }
 
   async updateUserProfile(name:string, birthdate:string, weight:string, height:string, fitnessLevel:string){
-    // to update user information into local storage
+    // to update user information into storage
     let profile = new ProfileData();
     profile.updateProfile(name, birthdate, weight, height, fitnessLevel);
-    this.storage.set('profile', profile); // store in local storage
+    this.storage.set('profile', profile); // store in storage
   }
 
   async getUserProfile():Promise<ProfileData> {
-    return await this.storage.get('profile'); // get profile from local storage
+    return await this.storage.get('profile'); // get profile from storage
   }
 
   async setWorkoutData(exercises:any) {
-    // set workout data and store in local storage (from json "exercises")
+    // set workout data and store in storage (from json "exercises")
 
     // json format:
     /* Exercise Name : { 0 : Type, 
@@ -52,7 +52,7 @@ export class StorageService {
       workouts.push(workout); // push workout to list of workouts
     }
     
-    this.storage.set("workouts", workouts); // set workouts into local storage
+    this.storage.set("workouts", workouts); // set workouts into storage
   }
 
   async getWorkoutData(): Promise<WorkoutData> {
