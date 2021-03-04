@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SurveyPageRoutingModule } from './survey-routing.module';
 
 import { SurveyPage } from './survey.page';
+import { AddworkoutPage } from '../../pages/addworkout/addworkout.page';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SurveyPage } from './survey.page';
     IonicModule,
     SurveyPageRoutingModule
   ],
-  declarations: [SurveyPage]
+  declarations: [SurveyPage, AddworkoutPage]
 })
 export class SurveyPageModule { }

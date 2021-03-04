@@ -26,7 +26,7 @@ export class SurveyPage implements OnInit {
   ngOnInit() {
   }
 
-  click() {
+  click() { // function for clicking submit button on survey form
     let height = "" + this.feet + "' " + this.inches + "\"";
     let fitnessLevel = this.active; // TEMPORARY, active will be used to calculate a different fitnesslevel in the future
     this.service.updateUserProfile(this.name, this.birthdate, this.weight, height, fitnessLevel); // updates profile in local storage

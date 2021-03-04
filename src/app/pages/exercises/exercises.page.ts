@@ -2,7 +2,9 @@
 
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import * as data from 'Exercises Metadata/Metadata.json';
+import { SelectMultipleControlValueAccessor } from '@angular/forms';
+// import * as data from 'Exercises Metadata/Metadata.json';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-exercises',
@@ -16,34 +18,42 @@ export class ExercisesPage implements OnInit {
   private filterExercises;
   public searchTerm;
   public array;
+  public workouts;
 
 
-  constructor() {
-    this.exercises = data.default; // load json 
-    console.log()
-    this.array = []; // list of exercises to be displayed
+  constructor(private storage : StorageService) {
+    this.setStorage();
   }
 
   ngOnInit() {
-    for(var i in this.exercises){ // add exercises to array to be displayed on this page
-      this.array.push(i);
-    }
+
   }
 
   filteredExercises() {
     // filter through (from search bar) exercises
-    this.resetSearch(); 
-    this.array = this.array.filter(item => {
-      return item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+    this.storage.getWorkoutData().then(result => {
+      this.setArray(result); // to reset list of array
+
+      this.array = this.array.filter(item => { // to filter through array for terms that contain searchTerm
+        return item.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1;
+      });
     });
   }
 
-  resetSearch() { 
-    // reset array of exercises to be displayed back to full list
-    this.array = [];
-    for(var i in this.exercises){ 
-      this.array.push(i);
-    }
+  test() { // TODO: when clicking on exercise make popup of exercise information
+
   }
 
+  setStorage() { // get data from storage and push into array
+    this.storage.getWorkoutData().then(result => {
+      this.setArray(result);
+    });
+  }
+
+  setArray(result:any) { // pushes result into array
+    this.array = []; // list of exercises to be displayed
+    for (var item in result) {
+      this.array.push(result[item].name);
+    }
+  }
 }

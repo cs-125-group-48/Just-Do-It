@@ -44,4 +44,11 @@ ion-slides {
 
   ion-content {
     --background: url(../../../assets/images/fitness-background.jpeg) center center / cover no-repeat;
+    // --padding-bottom: 5vh;
+  }
+
+  
+  .addworkout {
+    --padding-bottom: 5vh;
+    --background: transparent;
   }

@@ -4,7 +4,7 @@
     <ion-icon [routerLink]="['/tabs/calendar']" size="large" name="arrow-back" slot="start"></ion-icon>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="filteredExercises()" (ionClear)="resetSearch()"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="filteredExercises()" (ionClear)="setStorage()"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 

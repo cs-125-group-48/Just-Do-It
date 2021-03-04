@@ -1,8 +1,8 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Schedule Routine</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
   <!-- <ion-button [routerLink]="['/']">Back</ion-button> -->
@@ -17,16 +17,16 @@
   <h1>What times are you free?</h1>
   <ion-item>
     <ion-label>Start time</ion-label>
-    <ion-datetime displayFormat="hh:mm a"></ion-datetime>
+    <ion-datetime displayFormat="hh:mm a" [(ngModel)]="startTime"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>End time</ion-label>
-    <ion-datetime displayFormat="hh:mm a"></ion-datetime>
+    <ion-datetime displayFormat="hh:mm a" [(ngModel)]="endTime"></ion-datetime>
   </ion-item>
 
   <ion-item>
     <ion-label>Focus</ion-label>
-    <ion-select interface="popover" multiple="true">
+    <ion-select interface="popover" multiple="true" [(ngModel)]="focus">
       <ion-select-option value="arms">Arms</ion-select-option>
       <ion-select-option value="legs">Legs</ion-select-option>
       <ion-select-option value="abdominals">Abdominals</ion-select-option>
@@ -37,11 +37,19 @@
     </ion-select>
   </ion-item>
 
-  <ion-button [routerLink]="['/']" color="danger">
+  <!-- TODO: make user unable to select date before current date -->
+  <ion-item>
+    <ion-label>End date</ion-label>
+    <ion-datetime [(ngModel)]="endDate"></ion-datetime>
+  </ion-item>
+
+  <ion-button *ngIf="showButton" [routerLink]="['/']" color="danger">
     <ion-icon name="close"></ion-icon>
   </ion-button>
-  <ion-button [routerLink]="['/']" color="success"> 
+  
+  <ion-button (click)="addWorkoutToStorage()" [routerLink]="route" color="success"> 
     <!-- success button is stub TODO: add action to button -->
+    Schedule 
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>
   

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-calendar',
@@ -11,6 +12,7 @@ export class CalendarPage {
   viewTitle;
   startTime;
   endTime;
+  service;
 
   isToday:boolean;
   calendar = {
@@ -44,12 +46,18 @@ export class CalendarPage {
       }
   };
 
-  constructor(private navController:NavController) {
+  constructor(private navController:NavController, private storageService:StorageService) {
+      this.service = storageService;
+
+      this.loadEvents();
 
   }
 
   loadEvents() {
-      this.eventSource = this.createRandomEvents();
+    this.storageService.getEvents().then( events => { // get events from local storage and store into eventSource
+        console.log(events);
+        this.eventSource = events;
+    } );
   }
 
   onViewTitleChanged(title) {
@@ -139,6 +147,11 @@ export class CalendarPage {
         // }
     }
     return events;
+  }
+
+  getWorkoutSchedule() {
+    //gets workout schedule that is stored in local storage
+
   }
 
   onRangeChanged(ev) {
