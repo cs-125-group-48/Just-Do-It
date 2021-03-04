@@ -13,18 +13,18 @@ export class StorageService {
 
   constructor(private storage: Storage) { }
 
-  updateUserProfile(name:string, birthdate:string, weight:string, height:string, fitnessLevel:string){
+  async updateUserProfile(name:string, birthdate:string, weight:string, height:string, fitnessLevel:string){
     // to update user information into local storage
     let profile = new ProfileData();
     profile.updateProfile(name, birthdate, weight, height, fitnessLevel);
     this.storage.set('profile', profile); // store in local storage
   }
 
-  getUserProfile():Promise<ProfileData> {
-    return this.storage.get('profile'); // get profile from local storage
+  async getUserProfile():Promise<ProfileData> {
+    return await this.storage.get('profile'); // get profile from local storage
   }
 
-  setWorkoutData(exercises:any) {
+  async setWorkoutData(exercises:any) {
     // set workout data and store in local storage (from json "exercises")
 
     // json format:
@@ -52,6 +52,12 @@ export class StorageService {
     }
     
     this.storage.set("workouts", workouts); // set workouts into local storage
+  }
+
+  async getWorkoutData(): Promise<WorkoutData> {
+    return await this.storage.get('workouts').then( result => {
+      return result;
+    });
   }
 
   // TODO: create set and get user schedule
