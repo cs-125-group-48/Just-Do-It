@@ -27,6 +27,7 @@
     "ionic-native": "^2.9.0",
     "ionic2-calendar": "^0.6.6",
     "rxjs": "~6.6.0",
+    "shortid": "^2.2.16",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
@@ -41,6 +42,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "@types/shortid": "0.0.29",
     "codelyzer": "^6.0.0",
     "cordova-sqlite-storage": "^5.1.0",
     "jasmine-core": "~3.6.0",

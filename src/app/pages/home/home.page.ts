@@ -1,3 +1,5 @@
+// HomePage: home page for user that shows next workout
+
 import { Component } from '@angular/core';
 
 @Component({
