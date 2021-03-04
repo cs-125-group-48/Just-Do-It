@@ -20,10 +20,10 @@ export class ProfilePage {
   public profile:ProfileData;
 
   constructor(private storageService:StorageService) { 
-    this.service = storageService; // access local storage
+    this.service = storageService; // access storage
 
     this.service.getUserProfile().then((result) => {
-      // get information from local storage
+      // get information from storage
       this.name = result.name;
       this.age = this.getAge(result.birthdate);
       this.weight = result.weight;

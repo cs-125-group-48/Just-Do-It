@@ -54,7 +54,7 @@ export class CalendarPage {
   }
 
   loadEvents() {
-    this.storageService.getEvents().then( events => { // get events from local storage and store into eventSource
+    this.storageService.getEvents().then( events => { // get events from storage and store into eventSource
         console.log(events);
         this.eventSource = events;
     } );

@@ -47,7 +47,7 @@ export class AddworkoutPage implements OnInit {
   this.storageService.getWorkoutData().then( workouts => { // get workouts from storage
 
     let daysFree = [];
-    // add information from add workout page to local storage when function is called
+    // add information from add workout page to storage when function is called
     this.form.forEach(item => (item["isChecked"]) ? daysFree.push(item["val"]) : ""); // store selected days free in array "daysFree"
     this.storageService.setUserSchedule(daysFree, this.startTime, this.endTime, this.focus, this.endDate);
 
