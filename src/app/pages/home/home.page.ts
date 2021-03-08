@@ -1,6 +1,7 @@
 // HomePage: home page for user that shows next workout
 
 import { Component } from '@angular/core';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
+  public name:string;
 
-  constructor() {}
+  constructor(private storageService:StorageService) {
+    this.storageService.getUserProfile().then((result) => {
+      // get name from storage
+      this.name = result.name;
+      
+    });
+  }
 
 }

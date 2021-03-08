@@ -12,14 +12,24 @@
       <ion-title size="large">Profile</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-icon name="person" size="large"></ion-icon>
   
-<ion-content>
-  <h1>{{ name }}</h1>
-  <h2>Age: {{ age }}</h2>
-  <h2>Weight: {{ weight }} lbs</h2>
-  <h2>Height: {{ height }}</h2>
-  <h2>Fitness Level: {{ fitnessLevel }}</h2>
-  <h2>Calories Burned: 0</h2>
+  
+<ion-content class="profile">
+  <!-- <ion-icon name="person" size="large"></ion-icon> -->
+  <ion-avatar>
+    <img src="../../../assets/images/cat.png">
+  </ion-avatar>
+
+  <div class="profile-info">
+    <div class="name"><h1>{{ name }}</h1></div>
+    <div class="info">
+      <p><b>Age:</b> {{ age }}</p>
+      <p><b>Weight:</b> {{ weight }} lbs</p>
+      <p><b>Height:</b> {{ height }}</p>
+      <p><b>Fitness Level:</b> {{ fitnessLevel }}</p>
+      <p><b>Calories Burned:</b> 0</p>
+    </div>
+  </div>
+
 </ion-content>
 </ion-content>
