@@ -12,7 +12,8 @@
         <button ion-button (click)="changeMode('month')">M</button>
         <button ion-button (click)="changeMode('week')">W</button>
         <button ion-button (click)="changeMode('day')">D</button>
-        <button ion-button (click)="loadEvents()">Load Events</button>
+        <button [routerLink]="['/exercises']">Add Exercise</button>
+        <!-- <button ion-button (click)="loadEvents()">Load Events</button> -->
     </ion-buttons>
   <!-- </ion-navbar> -->
 </ion-header>
@@ -23,7 +24,7 @@
       <ion-title size="large">Calendar</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-button [routerLink]="['/exercises']">Add Exercise</ion-button>
+
 
   <calendar [eventSource]="eventSource"
     [calendarMode]="calendar.mode"
@@ -35,7 +36,5 @@
     (onTimeSelected)="onTimeSelected($event)"
     step="30">
   </calendar>
-  
-  <!-- <calendar></calendar> -->
 
 </ion-content>

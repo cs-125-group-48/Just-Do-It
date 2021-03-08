@@ -1,5 +1,5 @@
 // Storage
-// To see local storage in chrome: go to Developer Tools, on top bar click on Application, then IndexedDB -> _ionicckv
+// To see local storage in chrome: go to Developer Tools, on top bar click on Application, then IndexedDB -> _mydb -> _ionicckv
 
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
@@ -44,11 +44,11 @@ export class StorageService {
 
       let videos = [];
 
-      for (let i=2; i<=16; i++) { // getting video data of workout
+      for (let i=3; i<=17; i++) { // getting video data of workout
         videos.push( value[i] );
       }
 
-      let workout = new WorkoutData(exercise, value[0], value[1], videos); // convert json into WorkoutData object
+      let workout = new WorkoutData(exercise, value[0], value[1], value[2], videos); // convert json into WorkoutData object
       workouts.push(workout); // push workout to list of workouts
     }
     

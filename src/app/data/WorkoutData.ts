@@ -7,21 +7,23 @@ export class WorkoutData {
     public id:string;
     public name:string; // name of workout
     public type:string; // type of workout ex: Arms, Legs, etc
+    public muscleGroup:string; // list muscles that the workout targets
     public description:string; // description of workout
     public videos:Array<VideoData>; // list of youtube links to workouts
 
-    constructor(name:string, type:string, description:string, videos:any[]) {
+    constructor(name:string, type:string, muscleGroup:string, description:string, videos:any[]) {
         this.videos = [];
-		this.setWorkout(name, type, description, videos)
+		this.setWorkout(name, type, muscleGroup, description, videos)
     }
 
-    setWorkout(name:string, type:string, description:string, videos:any[]) {
+    setWorkout(name:string, type:string, muscleGroup:string, description:string, videos:any[]) {
         this.id = generate();
         this.name = name;
         this.type = type;
         this.description = description;
+        this.muscleGroup = muscleGroup;
         videos.forEach( item => { // creating array of videos 
-            let video = new VideoData(item["title"], item["url"]);
+            let video = new VideoData(item["title"], item["embedded_url"]);
             this.videos.push(video);
         })
     }

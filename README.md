@@ -21,3 +21,18 @@ While we all are stuck inside our houses due to stay at home orders, we thought 
 
 ## Run app within Just-Do-It folder
     ionic lab
+
+# To run on Andriod device
+
+## Requirements: 
+- Java JDK 8
+- Andriod Studio 
+    - note: remember to accept lisences to download Andriod SDK packages or app will not run.
+
+    run command: 
+    
+        ionic cordova run android --device 
+
+### To debug app
+
+Go to ``` chrome://inspect ``` and inspect Ionic App
