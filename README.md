@@ -33,6 +33,34 @@ While we all are stuck inside our houses due to stay at home orders, we thought 
     
         ionic cordova run android --device 
 
-### To debug app
+- Give your app access to Google Fitness API
+    - (usually you need to get the OAuth 2.0 Client ID like [so](https://developers.google.com/fit/android/get-api-key) to enable Fitness API but, for some reason when authorizing applcation it would just hang so instead the other option listed below as a quick fix)
+
+    - get SHA-1 and SHA256 fingerprint:
+        - locate debug keystore file (default: C:\Users\your_user_name\.android\)
+        - run command below to list fingerprints:
+
+                keytool -list -v -keystore "%USERPROFILE%\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+    - Create new project with firebase
+    - Add an andriod app in firebase project settings
+    - Add both SHA-1 and SHA-256 to SHA certificate fingerprints in project settings
+    - Download google-services.json and add to platofmrs/andriod/app in your project folder
+    - Make sure to have support email set
+
+#
+
+## To debug app
 
 Go to ``` chrome://inspect ``` and inspect Ionic App
+
+#
+
+## Troubleshooting Andriod implementation
+
+For build errors try removing and adding andriod platform
+    
+    cordova platform remove andriod
+    cordova platform add andriod
+
+to re-add plugins that may have gotten left behind
+
