@@ -29,18 +29,19 @@ export class StorageService {
     // set workout data and store in storage (from json "exercises")
 
     // json format:
-    /* Exercise Name : { 0 : Type, 
-      1 : Description, 
-      2-16 : 
-          thumbnails : ..., 
-          url : youtubelink, 
+    /* Exercise Name : { 0 : Type,
+      1 : [Muscle targets]
+      2 : Description,
+      3-17 :
+          thumbnails : ...,
+          url : youtubelink,
           title : youtubetitle }
     */
 
    // getting all workouts from json and converting them into WorkoutData/VideoData objects
    let workouts = [];
     for (var exercise in exercises) {
-      let value = exercises[exercise]; 
+      let value = exercises[exercise];
 
       let videos = [];
 
@@ -51,7 +52,7 @@ export class StorageService {
       let workout = new WorkoutData(exercise, value[0], value[1], value[2], videos); // convert json into WorkoutData object
       workouts.push(workout); // push workout to list of workouts
     }
-    
+
     this.storage.set("workouts", workouts); // set workouts into storage
   }
 

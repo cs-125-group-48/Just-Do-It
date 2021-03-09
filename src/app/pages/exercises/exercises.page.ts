@@ -3,8 +3,12 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { SelectMultipleControlValueAccessor } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { ExerciseInfoModalComponent } from '../../exercise-info-modal/exercise-info-modal.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // import * as data from 'Exercises Metadata/Metadata.json';
 import { StorageService } from 'src/app/services/storage.service';
+import { VideoData } from 'src/app/data/VideoData';
 
 @Component({
   selector: 'app-exercises',
@@ -20,8 +24,7 @@ export class ExercisesPage implements OnInit {
   public array;
   public workouts;
 
-
-  constructor(private storage : StorageService) {
+  constructor(private storage : StorageService, private modalCtrl: ModalController, private sanitizer: DomSanitizer) {
     this.setStorage();
   }
 
@@ -40,8 +43,30 @@ export class ExercisesPage implements OnInit {
     });
   }
 
-  test() { // TODO: when clicking on exercise make popup of exercise information
+  async exercise_info_modal(exercise) { // TODO: when clicking on exercise make popup of exercise information
+    var exercise_description:string = "No description available.";
+    var video:SafeResourceUrl;
 
+    await this.storage.getWorkoutData().then(result => {
+      for (var item in result){
+        if (result[item].name === exercise){
+          exercise_description = result[item].description;
+          video = this.sanitizer.bypassSecurityTrustResourceUrl(result[item].videos[0].url);
+          break;
+        }
+      }
+    });
+
+    const modal = await this.modalCtrl.create({
+      component: ExerciseInfoModalComponent,
+      componentProps:{
+        name: exercise,
+        description: exercise_description,
+        video: video
+      }
+    });
+
+    await modal.present();
   }
 
   setStorage() { // get data from storage and push into array

@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-item *ngFor="let exercise of array" button (click)="test()">
+  <ion-item *ngFor="let exercise of array" button (click)="exercise_info_modal(exercise)">
     <ion-label>{{exercise}}</ion-label>
   </ion-item>
 </ion-content>
