@@ -50,7 +50,9 @@ export class ExercisesPage implements OnInit {
     await this.storage.getWorkoutData().then(result => {
       for (var item in result){
         if (result[item].name === exercise){
-          exercise_description = result[item].description;
+          if (result[item].description.length > 0){
+            exercise_description = result[item].description;
+          }
           video = this.sanitizer.bypassSecurityTrustResourceUrl(result[item].videos[0].url);
           break;
         }
@@ -80,5 +82,6 @@ export class ExercisesPage implements OnInit {
     for (var item in result) {
       this.array.push(result[item].name);
     }
+    this.array.sort();
   }
 }
