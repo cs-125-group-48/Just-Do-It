@@ -41,7 +41,7 @@ def create_difficulty_table(conn):
     execute_simple_statement(conn, stmt3)
 
 
-
+ 
 def video_difficulty(conn):
     cursor = conn.cursor()
 
@@ -56,7 +56,7 @@ def video_difficulty(conn):
 
 
 if __name__ == '__main__':
-    conn = create_connection(r"C:\Users\Sharon Xia\OneDrive\2020-2021 Winter\CS 125\ytmetadata\ytdata.db")
+    conn = create_connection(r"""C:\Users\Sharon Xia\OneDrive\2020-2021 Winter\CS 125\ytmetadata\ytdata.db""")
 
     # create table
     create_table_sqlstmt =  """ CREATE TABLE IF NOT EXISTS yt_metadata (

@@ -6,24 +6,77 @@ import { Storage } from '@ionic/storage';
 import { ProfileData } from 'src/app/data/ProfileData';
 import { WorkoutData } from 'src/app/data/WorkoutData';
 import { ScheduleData } from 'src/app/data/ScheduleData';
+import { UserDifficulty } from 'src/app/data/UserDifficulty';
+import { EventData } from 'src/app/data/EventData';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-
-  constructor(private storage: Storage) { }
+  private currentEventIndex: number;
+  
+  constructor(private storage: Storage) { 
+    this.currentEventIndex = 0;
+  }
 
   async updateUserProfile(name:string, birthdate:string, weight:string, height:string, fitnessLevel:string){
     // to update user information into storage
     let profile = new ProfileData();
     profile.updateProfile(name, birthdate, weight, height, fitnessLevel);
     this.storage.set('profile', profile); // store in storage
+
+
+    // update user-difficulty levels [tracks difficulty for each muscle group]
+    this.storage.get("user_difficulty").then(data=>
+    {
+        if (!data){
+          let user_difficulty = new UserDifficulty(fitnessLevel);
+          this.storage.set('user_difficulty', user_difficulty);
+        }
+    });
   }
+
+ 
 
   async getUserProfile():Promise<ProfileData> {
     return await this.storage.get('profile'); // get profile from storage
   }
+
+  // separate difficulty for each muscle-group
+  async updateUserDifficulty(difficulty: UserDifficulty){
+    // update user-difficulty levels [tracks difficulty for each muscle group]
+    this.storage.set('user_difficulty', difficulty);
+  }
+
+  async getUserDifficulty():Promise<UserDifficulty> {
+    return await this.storage.get('user_difficulty');
+  }
+
+  async getNextEvent():Promise<EventData>{
+
+    return null;
+  }
+
+  // takes in date, and returns matching event
+  async getEvent(date: Date):Promise<EventData> {
+    let events = this.storage.get("events");
+
+    for (var event in events){
+
+    }
+
+    return null;
+  }
+
+  async setCurrentEvent(event: EventData){
+    this.storage.set('current_event', event);
+  }
+
+  async getStoredCurrentEvent():Promise<EventData> {
+    return this.storage.get('current_event');
+  }
+
 
   async setWorkoutData(exercises:any) {
     // set workout data and store in storage (from json "exercises")
