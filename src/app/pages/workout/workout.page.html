@@ -12,16 +12,21 @@
       <ion-card-title>Today's Workout</ion-card-title>
     </ion-card-header>
   </ion-card>
-  <iframe src="https://www.youtube.com/embed/UyTR2EjTAXU"></iframe>
-  <h1>Title: Arms</h1>
+  <iframe [src]="getSafeUrl(video)"></iframe>
+  <h3>{{ name }}</h3>
+  <p><b>Focus:</b> {{ type }}</p>
+  <p><b>Muscle Groups:</b> {{ muscleGroup }}</p>
   <!-- <h2>Duration: </h2> -->
 
-  <ion-button color="danger">
-    <!-- TODO: when closing lower difficulty level -->
-    <ion-icon name="close"></ion-icon>
-  </ion-button>
-  <ion-button [routerLink]="['/feedback']" color="success">
-    <!-- TODO: add feedback page (also check heart rate) to adjust difficulty level later -->
-    <ion-icon name="checkmark"></ion-icon>
-  </ion-button>
+  <div class="buttons">
+    <ion-button color="danger">
+      <!-- TODO: when closing lower difficulty level -->
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+    <ion-button [routerLink]="['/feedback']" color="success">
+      <!-- TODO: add feedback page (also check heart rate) to adjust difficulty level later -->
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-button>
+  </div>
+
 </ion-content>

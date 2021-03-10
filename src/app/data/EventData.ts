@@ -6,6 +6,7 @@ export class EventData {
     public endTime:Date;
     public type:string;
     public workoutid:string;
+    public completed:boolean;
 
     constructor(title:string, startTime:Date, endTime:Date, type:string, workoutid:string) {
         this.title = title;
@@ -13,5 +14,6 @@ export class EventData {
         this.endTime = endTime;
         this.type = type;
         this.workoutid = workoutid;
+        this.completed = false;
     }
 }

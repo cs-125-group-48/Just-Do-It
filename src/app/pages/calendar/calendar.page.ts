@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -46,18 +47,23 @@ export class CalendarPage {
       }
   };
 
-  constructor(private navController:NavController, private storageService:StorageService) {
+  constructor(private navController:NavController, private storageService:StorageService, private router:Router) {
       this.service = storageService;
-
       this.loadEvents();
-
   }
 
   loadEvents() {
     this.storageService.getEvents().then( events => { // get events from storage and store into eventSource
-        console.log(events);
-        this.eventSource = events;
-    } );
+        if (events != null) { // only add events to eventSource if there are events in storage
+            console.log(events);
+            this.eventSource = []; // start with no events
+            events.forEach(element => {
+                if (!element.completed) { // if workout is not finished 
+                    this.eventSource.push(element); // add to eventSource to display on calendar
+                }
+            });
+        }
+    });
   }
 
   onViewTitleChanged(title) {
@@ -65,7 +71,8 @@ export class CalendarPage {
   }
 
   onEventSelected(event) {
-      console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+    console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+    this.router.navigateByUrl('/workout/' + event.workoutid)
   }
 
   changeMode(mode) {
@@ -88,72 +95,6 @@ export class CalendarPage {
       this.isToday = today.getTime() === event.getTime();
   }
 
-  createRandomEvents() {
-      var events = [];
-      for (var i = 0; i < 50; i += 1) {
-          var date = new Date();
-          var eventType = Math.floor(Math.random() * 2);
-          var startDay = Math.floor(Math.random() * 90);
-          var endDay = Math.floor(Math.random() * 2) + startDay;
-          var startTime;
-          var endTime;
-          // if (eventType === 0) {
-          //     startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-          //     if (endDay === startDay) {
-          //         endDay += 1;
-          //     }
-          //     endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-          //     events.push({
-          //         title: 'All Day - ' + i,
-          //         startTime: startTime,
-          //         endTime: endTime,
-          //         allDay: true
-          //     });
-          // } else {
-              var startMinute = Math.floor(Math.random() * 24 * 60);
-              var endMinute = Math.floor(Math.random() * 180) + startMinute;
-              startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-              endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-              events.push({
-                  title: 'Workout - ' + i,
-                  startTime: startTime,
-                  endTime: endTime,
-                  allDay: false
-              });
-          // }
-      }
-      return events;
-  }
-
-  createWorkoutEXAMPLE() {
-    var days = [22,24,26,1,3,]
-    var events = [];
-    for (var i = 0; i < 50; i += 1) {
-        var date = new Date();
-        var startDay = Math.floor(Math.random() * 90) - 45;
-        var endDay = Math.floor(Math.random() * 2) + startDay;
-        var startTime;
-        var endTime;
-        var startMinute = Math.floor(Math.random() * 24 * 60);
-        var endMinute = Math.floor(Math.random() * 180) + startMinute;
-        startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-        endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-        events.push({
-            title: 'Event - ' + i,
-            startTime: startTime,
-            endTime: endTime,
-            allDay: false
-            });
-        // }
-    }
-    return events;
-  }
-
-  getWorkoutSchedule() {
-    //gets workout schedule that is stored in local storage
-
-  }
-
   onRangeChanged(ev) {
       console.log('range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime);
   }
@@ -168,6 +109,8 @@ export class CalendarPage {
 
   }
 
-  // constructor() {}
+  ionViewWillEnter() { // since tabs say cached, this functions makes sure the following will be run every time the page loads
+    this.loadEvents() // reloads workout routine data on to calendar
+  }
 
 }

@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/workout/workout.module').then( m => m.WorkoutPageModule)
   },
   {
+    path: 'workout/:id', 
+    loadChildren: () => import('./pages/workout/workout.module').then( m => m.WorkoutPageModule)
+  },
+  {
     path: 'addworkout',
     loadChildren: () => import('./pages/addworkout/addworkout.module').then( m => m.AddworkoutPageModule)
   },
@@ -25,7 +29,8 @@ const routes: Routes = [
   {
     path: 'exercises',
     loadChildren: () => import('./pages/exercises/exercises.module').then( m => m.ExercisesPageModule)
-  },  {
+  },
+  {
     path: 'survey',
     loadChildren: () => import('./pages/survey/survey.module').then( m => m.SurveyPageModule)
   }
