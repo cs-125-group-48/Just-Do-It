@@ -12,23 +12,23 @@
       <h2>Basic information</h2>
       <ion-item>
         <ion-label>Name</ion-label>
-        <ion-input [(ngModel)]="name"  slot="end" placeholder="First Name"></ion-input>
+        <ion-input required="true" [(ngModel)]="name"  slot="end" placeholder="First Name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Birth Date</ion-label>
-        <ion-datetime [(ngModel)]="birthdate" value="1990-02-19" placeholder="Select Date"></ion-datetime>
+        <ion-datetime required="true" [(ngModel)]="birthdate" value="1990-02-19" placeholder="Select Date"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>Weight</ion-label>
-        <ion-input [(ngModel)]="weight" slot="end" placeholder="lbs" inputmode="numeric" type="number" min="0"></ion-input>
+        <ion-input required="true" [(ngModel)]="weight" slot="end" placeholder="lbs" inputmode="numeric" type="number" min="0"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Height</ion-label>
-        <ion-input [(ngModel)]="feet" slot="end" placeholder="ft" inputmode="numeric" type="number" min="0"></ion-input>
-        <ion-input [(ngModel)]="inches" slot="end" placeholder="in" inputmode="numeric" type="number" min="0"></ion-input>
+        <ion-input required="true" [(ngModel)]="feet" slot="end" placeholder="ft" inputmode="numeric" type="number" min="0"></ion-input>
+        <ion-input required="true" [(ngModel)]="inches" slot="end" placeholder="in" inputmode="numeric" type="number" min="0"></ion-input>
       </ion-item>
 
     </ion-slide>
@@ -37,7 +37,7 @@
       <h2>Developing your fitness level</h2>
       <b>How active are you?</b>
       
-        <ion-radio-group  [(ngModel)]="active">
+        <ion-radio-group required="true" [(ngModel)]="active">
 
 
           <ion-item>
@@ -71,7 +71,7 @@
     <ion-slide>
       <h2>Almost there!</h2>
       <b>Ready to start your fitness journey?</b>
-      <ion-button (click)="click()" [routerLink]="['/']">submit</ion-button>
+      <ion-button (click)="click()">submit</ion-button>
     </ion-slide>
     
   </ion-slides>

@@ -100,4 +100,13 @@ export class ProfilePage {
     })
     .catch(e => console.log("Error: " + e));
   }
+
+  doRefresh(event) { // when refresh page
+    console.log('Begin async operation');
+    this.getHealthData();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 100);
+  }
 }
