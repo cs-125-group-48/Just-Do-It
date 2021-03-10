@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
+import { Health } from '@ionic-native/health/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,7 @@ import { IonicStorageModule } from '@ionic/storage';
     driverOrder: ['indexeddb', 'sqlite', 'websql']
     })
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Health],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

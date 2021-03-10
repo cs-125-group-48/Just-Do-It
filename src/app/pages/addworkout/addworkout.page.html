@@ -1,57 +1,61 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
     <ion-title>Schedule Routine</ion-title>
+    <ion-icon [routerLink]="['/']" size="large" name="arrow-back" slot="start"></ion-icon>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content>
   <!-- <ion-button [routerLink]="['/']">Back</ion-button> -->
-  <h1>What days are you free?</h1>
-  <ion-list>
-    <ion-item *ngFor="let entry of form">
-      <ion-label>{{entry.val}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+  <div class="content">
+    <h1>What days are you free?</h1>
+    <ion-list>
+      <ion-item *ngFor="let entry of form">
+        <ion-label>{{entry.val}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+    <h1>What times are you free?</h1>
+    <ion-item>
+      <ion-label>Start time</ion-label>
+      <ion-datetime displayFormat="hh:mm a" [(ngModel)]="startTime"></ion-datetime>
     </ion-item>
-  </ion-list>
+    <ion-item>
+      <ion-label>End time</ion-label>
+      <ion-datetime displayFormat="hh:mm a" [(ngModel)]="endTime"></ion-datetime>
+    </ion-item>
 
-  <h1>What times are you free?</h1>
-  <ion-item>
-    <ion-label>Start time</ion-label>
-    <ion-datetime displayFormat="hh:mm a" [(ngModel)]="startTime"></ion-datetime>
-  </ion-item>
-  <ion-item>
-    <ion-label>End time</ion-label>
-    <ion-datetime displayFormat="hh:mm a" [(ngModel)]="endTime"></ion-datetime>
-  </ion-item>
+    <ion-item>
+      <ion-label>Focus</ion-label>
+      <ion-select interface="popover" multiple="true" [(ngModel)]="focus">
+        <ion-select-option value="arms">Arms</ion-select-option>
+        <ion-select-option value="legs">Legs</ion-select-option>
+        <ion-select-option value="abdominals">Abdominals</ion-select-option>
+        <ion-select-option value="chest">Chest</ion-select-option>
+        <ion-select-option value="back">Back</ion-select-option>
+        <ion-select-option value="shoulders">Shoulders</ion-select-option>
+        <ion-select-option value="calves">Calves</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Focus</ion-label>
-    <ion-select interface="popover" multiple="true" [(ngModel)]="focus">
-      <ion-select-option value="arms">Arms</ion-select-option>
-      <ion-select-option value="legs">Legs</ion-select-option>
-      <ion-select-option value="abdominals">Abdominals</ion-select-option>
-      <ion-select-option value="chest">Chest</ion-select-option>
-      <ion-select-option value="back">Back</ion-select-option>
-      <ion-select-option value="shoulders">Shoulders</ion-select-option>
-      <ion-select-option value="calves">Calves</ion-select-option>
-    </ion-select>
-  </ion-item>
+    <!-- TODO: make user unable to select date before current date -->
+    <ion-item>
+      <ion-label>End date</ion-label>
+      <ion-datetime [(ngModel)]="endDate"></ion-datetime>
+    </ion-item>
 
-  <!-- TODO: make user unable to select date before current date -->
-  <ion-item>
-    <ion-label>End date</ion-label>
-    <ion-datetime [(ngModel)]="endDate"></ion-datetime>
-  </ion-item>
-
-  <ion-button *ngIf="showButton" [routerLink]="['/']" color="danger">
-    <ion-icon name="close"></ion-icon>
-  </ion-button>
-  
-  <ion-button (click)="addWorkoutToStorage()" [routerLink]="route" color="success"> 
-    <!-- success button is stub TODO: add action to button -->
-    Schedule 
-    <ion-icon name="checkmark"></ion-icon>
-  </ion-button>
+    <!-- <ion-button *ngIf="showButton" [routerLink]="['/']" color="danger">
+      <ion-icon name="close"></ion-icon>
+    </ion-button> -->
+    <div class="button">
+      <ion-button (click)="addWorkoutToStorage()" [routerLink]="['/']" color="success"> 
+        <!-- success button is stub TODO: add action to button -->
+        Schedule 
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </div>
+  </div>  
   
 
 </ion-content>
