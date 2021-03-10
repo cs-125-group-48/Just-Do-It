@@ -10,6 +10,7 @@ export class ExerciseInfoModalComponent implements OnInit {
   public name;
   public description;
   public video;
+  public category;
 
   constructor(private modalCtrl: ModalController) { }
 

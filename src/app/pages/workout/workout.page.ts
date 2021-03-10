@@ -18,18 +18,34 @@ export class WorkoutPage implements OnInit {
   public name:string;
   public type:string;
   public muscleGroup:Array<string>;
-  public videos:Array<string>; // TODO: display all list of videos 
+  public videos:Array<string>; // TODO: display all list of videos
   public date:string; // date of workout
+  public sets:number;
+  public rest:number;
 
   public safeUrl; // temp single video
   public video;
 
   constructor(private route:ActivatedRoute, private storageService:StorageService,private sanitizer: DomSanitizer) {
-    this.workoutId = this.route.snapshot.paramMap.get('workoutId'); // get workout id from route it was sent to 
-    this.eventId = this.route.snapshot.paramMap.get('eventId'); // get event id from route it was sent to 
+    this.workoutId = this.route.snapshot.paramMap.get('workoutId'); // get workout id from route it was sent to
+    this.eventId = this.route.snapshot.paramMap.get('eventId'); // get event id from route it was sent to
 
     this.getWorkout();
     this.getEvent();
+    this.sets = 2;
+    this.rest = 3;
+    this.storageService.getFitnessLevel().then(level=>{
+      this.sets = this.sets * parseInt(level);
+      if (parseInt(level) <= 3){
+        this.rest = 3;
+      }
+      else if (parseInt(level) <= 6){
+        this.rest = 2;
+      }
+      else{
+        this.rest = 1;
+      }
+    });
    }
 
   ngOnInit() {}
@@ -48,10 +64,11 @@ export class WorkoutPage implements OnInit {
     });
   }
 
+  // incremented month
   getEvent() {
     this.storageService.getEvents().then(events => {
       let date = new Date(events[parseInt(this.eventId)-1].startTime); // -1 is temp
-      this.date = (date.getMonth()).toString() + "-" + (date.getDate()).toString() + "-" + (date.getFullYear()).toString();
+      this.date = (date.getMonth()+1).toString() + "-" + (date.getDate()).toString() + "-" + (date.getFullYear()).toString();
     });
   }
 
@@ -60,10 +77,22 @@ export class WorkoutPage implements OnInit {
   }
 
   markComplete() {
+    this.storageService.setCompletedWorkout(this.workoutId);
     this.storageService.getEvents().then(events => {
       events[parseInt(this.eventId)-1].completed = true;
       this.storageService.setEvents(events);
     });
     console.log("marked event as complete");
+  }
+
+  // FIXME: completed needs to be false
+  markUncomplete(){
+    this.storageService.setCompletedWorkout(this.workoutId);
+    this.storageService.getEvents().then(events => {
+      // events.
+      events[parseInt(this.eventId)-1].completed = true;
+      this.storageService.setEvents(events);
+    });
+    console.log("incomplete");
   }
 }

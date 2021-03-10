@@ -1,5 +1,5 @@
 <ion-content>
-  
+
   <ion-slides pager="true">
     <ion-slide>
       <ion-icon [routerLink]="['/']" size="large" name="close" slot="start"></ion-icon>
@@ -7,7 +7,7 @@
       <b>Before your start your fitness journey we have a couple questions for you</b>
     </ion-slide>
 
-    
+
     <ion-slide>
       <h2>Basic information</h2>
       <ion-item>
@@ -36,18 +36,18 @@
     <ion-slide>
       <h2>Developing your fitness level</h2>
       <b>How active are you?</b>
-      
+
         <ion-radio-group required="true" [(ngModel)]="active">
 
 
           <ion-item>
                 <ion-label>Highly Active</ion-label>
-                <ion-radio mode="md" item-left value="7"></ion-radio>
+                <ion-radio mode="md" item-left value="3"></ion-radio>
           </ion-item>
 
           <ion-item>
                 <ion-label>Regularly Active</ion-label>
-                <ion-radio mode="md" item-left value="5"></ion-radio>
+                <ion-radio mode="md" item-left value="2"></ion-radio>
           </ion-item>
 
           <ion-item>
@@ -73,6 +73,6 @@
       <b>Ready to start your fitness journey?</b><br>
       <ion-button (click)="click()">Yes!</ion-button>
     </ion-slide>
-    
+
   </ion-slides>
 </ion-content>

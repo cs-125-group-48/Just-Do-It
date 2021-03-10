@@ -23,9 +23,13 @@ export class ProfilePage {
 
   public profile:ProfileData;
 
-  constructor(private storageService:StorageService, private health:Health, private plt:Platform) { 
+  constructor(private storageService:StorageService, private health:Health, private plt:Platform) {
     this.service = storageService; // access storage
 
+    this.updateProfile();
+  }
+
+  updateProfile(){
     this.service.getUserProfile().then((result) => {
       // get information from storage
       this.name = result.name;
@@ -39,7 +43,7 @@ export class ProfilePage {
   ionViewWillEnter() { // since tabs say cached, this functions makes sure the following will be run every time the page loads
     this.getHealthData(); // requeries to get new live health data
   }
-  
+
 
   ngOnInit() {
   }
@@ -52,7 +56,7 @@ export class ProfilePage {
       var birthDate = new Date(dateString);
       var age = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
       {
           age--;
       }
@@ -67,8 +71,8 @@ export class ProfilePage {
           this.health.requestAuthorization([ // request access to Google fit data
             "distance",
             {
-              read: ["steps", "calories"], 
-              write: [], 
+              read: ["steps", "calories"],
+              write: [],
             },
           ])
           .then(res => console.log("Response " + res))
