@@ -4,7 +4,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { SelectMultipleControlValueAccessor } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { ExerciseInfoModalComponent } from '../../exercise-info-modal/exercise-info-modal.component';
+import { ExerciseInfoModalComponent } from '../exercise-info-modal/exercise-info-modal.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 // import * as data from 'Exercises Metadata/Metadata.json';
 import { StorageService } from 'src/app/services/storage.service';
