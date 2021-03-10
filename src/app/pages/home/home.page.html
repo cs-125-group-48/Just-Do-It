@@ -21,8 +21,18 @@
   </ion-header>
   <h1>Welcome back {{ name }}!</h1>
   <!-- <app-card [title]="'Next Suggested Workout'" [subtitle]="'Arms'" [image]="'assets/images/arm.png'" [router]="'/workout'"></app-card> -->
-  <app-card [title]="'Next Suggested Workout'" [subtitle]="workout" [router]="'/workout/' + workoutId + '/' + eventId"></app-card>
+  <!-- <app-card [title]="'Next Suggested Workout'" [subtitle]="workout" [router]="'/workout/' + workoutId + '/' + eventId"></app-card> -->
+  <ion-card [routerLink]="'/workout/' + workoutId + '/' + eventId">
+    <ion-card-header>
+      <ion-card-title>Next Suggested Workout</ion-card-title>
+      <!-- <img [src] = "image"> -->
+      <ion-icon class="barbell" name="barbell"></ion-icon>
+      <h2>{{month + ' ' + day }}</h2>
+      <ion-card-subtitle>{{ workout }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
   <!-- <app-card [title]="'Workout Log'" [subtitle]="''" [image]="''" [router]="['/workout']"></app-card> -->
-  <ion-button [routerLink]="'/addworkout'">Schedule New Workout Routine</ion-button>
+  <ion-button class="schedule" expand="block" [routerLink]="'/addworkout'"><ion-icon name="calendar"></ion-icon><p></p>Schedule New Workout</ion-button>
   <!-- <app-card [title]="'Exercises'" [image]="'assets/images/dumbbell.jpg'" [router]="'/exercises'"></app-card> -->
 </ion-content>

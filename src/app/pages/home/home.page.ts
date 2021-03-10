@@ -14,6 +14,11 @@ export class HomePage {
   public workoutId:string;
   public eventId:string;
 
+  public month:string;
+  public day:string;
+
+  private monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
   constructor(private storageService:StorageService) {
     this.storageService.getUserProfile().then((result) => {
       // get name from storage
@@ -30,6 +35,8 @@ export class HomePage {
       // console.log(result);
       if (result == undefined) {
         this.workout = "Please schedule a workout routine";
+        this.month = "";
+        this.day = "";
       }
       else {
         for (let i=0; i<result.length; i++) {
@@ -37,6 +44,11 @@ export class HomePage {
             this.workout = result[i].title;
             this.workoutId = result[i].workoutid;
             this.eventId = result[i].id;
+
+            // get month and day of workout
+            let date = new Date(result[i].startTime);
+            this.month = this.monthNames[(date.getMonth()).toLocaleString()];
+            this.day = (date.getDate()).toLocaleString();
             break;
           }
         }
