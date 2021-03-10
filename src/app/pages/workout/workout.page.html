@@ -9,7 +9,7 @@
   <!-- <ion-button [routerLink]="['/']">Back</ion-button> -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Today's Workout</ion-card-title>
+      <ion-card-title>({{ date }}) Workout</ion-card-title>
     </ion-card-header>
   </ion-card>
   <iframe [src]="getSafeUrl(video)"></iframe>
@@ -23,7 +23,7 @@
       <!-- TODO: when closing lower difficulty level -->
       <ion-icon name="close"></ion-icon>
     </ion-button>
-    <ion-button [routerLink]="['/feedback']" color="success">
+    <ion-button (click)="this.markComplete()" [routerLink]="['/feedback']" color="success">
       <!-- TODO: add feedback page (also check heart rate) to adjust difficulty level later -->
       <ion-icon name="checkmark"></ion-icon>
     </ion-button>

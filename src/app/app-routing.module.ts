@@ -11,7 +11,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/workout/workout.module').then( m => m.WorkoutPageModule)
   },
   {
-    path: 'workout/:id', 
+    path: 'workout/:workoutId/:eventId', 
     loadChildren: () => import('./pages/workout/workout.module').then( m => m.WorkoutPageModule)
   },
   {

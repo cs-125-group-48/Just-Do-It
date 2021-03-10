@@ -11,7 +11,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./workout.page.scss'],
 })
 export class WorkoutPage implements OnInit {
-  public id:string; // workoutid
+  public workoutId:string; // workoutid
+  public eventId:string;
 
   // to display on workoutpage
   public name:string;
@@ -24,16 +25,17 @@ export class WorkoutPage implements OnInit {
   public video;
 
   constructor(private route:ActivatedRoute, private storageService:StorageService,private sanitizer: DomSanitizer) {
-    this.id = this.route.snapshot.paramMap.get('id'); // get workout id from route it was sent to 
+    this.workoutId = this.route.snapshot.paramMap.get('workoutId'); // get workout id from route it was sent to 
+    this.eventId = this.route.snapshot.paramMap.get('eventId'); // get event id from route it was sent to 
+
     this.getWorkout();
-    // todo get eventid and change to completed when user clicks on check
-
-
+    this.getEvent();
    }
+
   ngOnInit() {}
 
   getWorkout() {
-    this.storageService.getWorkoutFromId(this.id).then(result => {
+    this.storageService.getWorkoutFromId(this.workoutId).then(result => {
       this.name = result.name;
       this.type = result.type;
       this.muscleGroup = result.muscleGroup;
@@ -46,7 +48,22 @@ export class WorkoutPage implements OnInit {
     });
   }
 
+  getEvent() {
+    this.storageService.getEvents().then(events => {
+      let date = new Date(events[parseInt(this.eventId)-1].startTime); // -1 is temp
+      this.date = (date.getMonth()).toString() + "-" + (date.getDate()).toString() + "-" + (date.getFullYear()).toString();
+    });
+  }
+
   getSafeUrl(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  markComplete() {
+    this.storageService.getEvents().then(events => {
+      events[parseInt(this.eventId)-1].completed = true;
+      this.storageService.setEvents(events);
+    });
+    console.log("marked event as complete");
   }
 }

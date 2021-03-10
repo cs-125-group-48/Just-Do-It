@@ -13,7 +13,7 @@ import * as data from 'Exercises Metadata/Metadata.json';
 })
 export class AppComponent {
   private exercises;
-  rootPage: any = ''; // sruvey is starting page, TODO: hide survey page when user already submits a survey
+  rootPage: any = '/tabs/home'; // sruvey is starting page, TODO: hide survey page when user already submits a survey
   constructor(
     private platform: Platform,
     // private splashScreen: SplashScreen,

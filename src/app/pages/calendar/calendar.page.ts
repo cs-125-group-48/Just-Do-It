@@ -72,7 +72,7 @@ export class CalendarPage {
 
   onEventSelected(event) {
     console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
-    this.router.navigateByUrl('/workout/' + event.workoutid)
+    this.router.navigateByUrl('/workout/' + event.workoutid + '/' + event.id);
   }
 
   changeMode(mode) {

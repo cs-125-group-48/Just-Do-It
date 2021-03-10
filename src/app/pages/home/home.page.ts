@@ -12,6 +12,7 @@ export class HomePage {
   public name:string;
   public workout:string;
   public workoutId:string;
+  public eventId:string;
 
   constructor(private storageService:StorageService) {
     this.storageService.getUserProfile().then((result) => {
@@ -34,13 +35,22 @@ export class HomePage {
         for (let i=0; i<result.length; i++) {
           if (!result[i].completed) {
             this.workout = result[i].title;
-            // console.log(this.workout);
             this.workoutId = result[i].workoutid;
+            this.eventId = result[i].id;
             break;
           }
         }
       }
     });
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.getNextWorkout();
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 100);
   }
 
 
