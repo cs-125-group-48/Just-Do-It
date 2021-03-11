@@ -42,6 +42,7 @@ export class ProfilePage {
 
   ionViewWillEnter() { // since tabs say cached, this functions makes sure the following will be run every time the page loads
     this.getHealthData(); // requeries to get new live health data
+    this.updateProfile(); // refresh profile info from storage
   }
 
 
@@ -95,12 +96,13 @@ export class ProfilePage {
       startDate: new Date(new Date().setHours(0, 0, 0, 0)), // beginning of day
       endDate: new Date(), // now
       dataType: type,
-      bucket: 'day'
+      // bucket: 'day'
     })
-    .then(entries => {
-      console.log(entries);
-      if (type === "steps") { this.steps = entries[0].value; }
-      else if (type === "calories") { this.calories = (Math.round(parseInt(entries[0].value))).toLocaleString(); }
+    .then(data => {
+      console.log(data);
+      let temp = Object(data);
+      if (type === "steps") { this.steps = temp.value; }
+      else if (type === "calories") { this.calories = (Math.round(parseInt(temp.value))).toLocaleString(); }
     })
     .catch(e => console.log("Error: " + e));
   }
@@ -108,6 +110,7 @@ export class ProfilePage {
   doRefresh(event) { // when refresh page
     console.log('Begin async operation');
     this.getHealthData();
+    this.updateProfile(); // refresh profile info from storage
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
