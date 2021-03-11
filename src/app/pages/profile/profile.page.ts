@@ -23,9 +23,13 @@ export class ProfilePage {
 
   public profile:ProfileData;
 
-  constructor(private storageService:StorageService, private health:Health, private plt:Platform) { 
+  constructor(private storageService:StorageService, private health:Health, private plt:Platform) {
     this.service = storageService; // access storage
 
+    this.updateProfile();
+  }
+
+  updateProfile(){
     this.service.getUserProfile().then((result) => {
       // get information from storage
       this.name = result.name;
@@ -38,8 +42,9 @@ export class ProfilePage {
 
   ionViewWillEnter() { // since tabs say cached, this functions makes sure the following will be run every time the page loads
     this.getHealthData(); // requeries to get new live health data
+    this.updateProfile(); // refresh profile info from storage
   }
-  
+
 
   ngOnInit() {
   }
@@ -52,7 +57,7 @@ export class ProfilePage {
       var birthDate = new Date(dateString);
       var age = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
       {
           age--;
       }
@@ -67,8 +72,8 @@ export class ProfilePage {
           this.health.requestAuthorization([ // request access to Google fit data
             "distance",
             {
-              read: ["steps", "calories"], 
-              write: [], 
+              read: ["steps", "calories"],
+              write: [],
             },
           ])
           .then(res => console.log("Response " + res))
@@ -91,12 +96,13 @@ export class ProfilePage {
       startDate: new Date(new Date().setHours(0, 0, 0, 0)), // beginning of day
       endDate: new Date(), // now
       dataType: type,
-      bucket: 'day'
+      // bucket: 'day'
     })
-    .then(entries => {
-      console.log(entries);
-      if (type === "steps") { this.steps = entries[0].value; }
-      else if (type === "calories") { this.calories = (Math.round(parseInt(entries[0].value))).toLocaleString(); }
+    .then(data => {
+      console.log(data);
+      let temp = Object(data);
+      if (type === "steps") { this.steps = temp.value; }
+      else if (type === "calories") { this.calories = (Math.round(parseInt(temp.value))).toLocaleString(); }
     })
     .catch(e => console.log("Error: " + e));
   }
@@ -104,6 +110,7 @@ export class ProfilePage {
   doRefresh(event) { // when refresh page
     console.log('Begin async operation');
     this.getHealthData();
+    this.updateProfile(); // refresh profile info from storage
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();

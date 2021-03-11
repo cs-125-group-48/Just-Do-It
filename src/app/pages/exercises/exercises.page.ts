@@ -46,6 +46,7 @@ export class ExercisesPage implements OnInit {
   async exercise_info_modal(exercise) { // TODO: when clicking on exercise make popup of exercise information
     var exercise_description:string = "No description available.";
     var video:SafeResourceUrl;
+    var category:string;
 
     await this.storage.getWorkoutData().then(result => {
       for (var item in result){
@@ -53,6 +54,7 @@ export class ExercisesPage implements OnInit {
           if (result[item].description.length > 0){
             exercise_description = result[item].description;
           }
+          category = result[item].type;
           video = this.sanitizer.bypassSecurityTrustResourceUrl(result[item].videos[0].url);
           break;
         }
@@ -64,7 +66,8 @@ export class ExercisesPage implements OnInit {
       componentProps:{
         name: exercise,
         description: exercise_description,
-        video: video
+        video: video,
+        category: category
       }
     });
 

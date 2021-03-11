@@ -39,7 +39,7 @@ export class HomePage {
         this.day = "";
       }
       else {
-        for (let i=0; i<result.length; i++) {
+        for (var i=0; i<result.length; i++) {
           if (!result[i].completed) {
             this.workout = result[i].title;
             this.workoutId = result[i].workoutid;
@@ -51,6 +51,12 @@ export class HomePage {
             this.day = (date.getDate()).toLocaleString();
             break;
           }
+        }
+        // all workouts completed
+        if (i == result.length){
+          this.workout = "Please schedule a workout routine";
+          this.month = "";
+          this.day = "";
         }
       }
     });

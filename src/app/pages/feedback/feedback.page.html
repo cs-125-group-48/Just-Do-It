@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content>
-  <h1>How was your workout?</h1>
+  <h1>How was the difficulty?</h1>
 
   <ion-radio-group  [(ngModel)]="feedback">
     <ion-item>
@@ -25,7 +25,25 @@
     </ion-item>
   </ion-radio-group>
 
-  <ion-button (click)="click()" [routerLink]="['/']" color="success">
+  <h1>Did you like this exercise?</h1>
+  <ion-radio-group  [(ngModel)]="exerciseFeedback">
+    <ion-item>
+        <ion-label>No</ion-label>
+        <ion-radio mode="md" item-left value="-1"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Eh</ion-label>
+        <ion-radio mode="md" item-left value="0"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Yes</ion-label>
+        <ion-radio mode="md" item-left value="1"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-button expand="block" (click)="submit()" [routerLink]="['/']" color="success">
     <!-- TODO: add feedback page (also check heart rate) to adjust difficulty level later -->
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>

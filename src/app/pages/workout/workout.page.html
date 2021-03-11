@@ -14,12 +14,14 @@
   </ion-card>
   <iframe [src]="getSafeUrl(video)"></iframe>
   <h3>{{ name }}</h3>
+  <p><b>Sets:</b> {{ this.sets }}</p>
+  <p><b>Rest Interval:</b> {{ this.rest }} minutes</p>
   <p><b>Focus:</b> {{ type }}</p>
   <p><b>Muscle Groups:</b> {{ muscleGroup }}</p>
   <!-- <h2>Duration: </h2> -->
 
   <div class="buttons">
-    <ion-button color="danger">
+    <ion-button (click)="this.markUncomplete()" [routerLink]="['/']" color="danger">
       <!-- TODO: when closing lower difficulty level -->
       <ion-icon name="close"></ion-icon>
     </ion-button>

@@ -12,15 +12,27 @@ export class FeedbackPage implements OnInit {
   public service:StorageService;
   public feedback:string;
   public fitnessLevel:string;
+  public exerciseFeedback:string;
 
-  constructor(private storageService:StorageService) { 
+  constructor(private storageService:StorageService) {
     this.service = storageService;
   }
 
   ngOnInit() {
   }
 
-  click() {
+  submit() {
+    // update fitness level
+
+
+    // add exercise info to whatever
+    this.service.getCompletedWorkout().then( workout_id =>{
+      this.service.getExerciseFeedback().then( result =>{
+        this.service.addExerciseFeedback(workout_id, parseInt(this.exerciseFeedback));
+      });
+    });
+
+
     // TODO: bug where this doesn't update the profile page
     // this.service.getFitness().then((result) => {
     //   this.fitnessLevel = (parseInt(result.toString()) + parseInt(this.feedback)).toString();
@@ -28,6 +40,14 @@ export class FeedbackPage implements OnInit {
     //   this.service.updateFitness(this.fitnessLevel);
     // });
 
+    // Profile page only updated after app refresh
+    this.service.getFitnessLevel().then(result=>{
+      console.log(result);
+      var newLevel = parseInt(result) + parseInt(this.feedback);
+      if (newLevel >= 1){
+        this.service.setFitnessLevel(newLevel.toString());
+      }
+    });
   }
 
 }

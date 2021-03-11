@@ -12,7 +12,9 @@ import { ScheduleData } from 'src/app/data/ScheduleData';
 })
 export class StorageService {
 
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage) {
+    storage.set("exerciseFeedback", new Map<string, number>());
+  }
 
   async updateUserProfile(name:string, birthdate:string, weight:string, height:string, fitnessLevel:string){
     // to update user information into storage
@@ -29,11 +31,11 @@ export class StorageService {
     // set workout data and store in storage (from json "exercises")
 
     // json format:
-    /* Exercise Name : { 0 : Type, 
-      1 : Description, 
-      2-16 : 
-          thumbnails : ..., 
-          url : youtubelink, 
+    /* Exercise Name : { 0 : Type,
+      1 : Description,
+      2-16 :
+          thumbnails : ...,
+          url : youtubelink,
           title : youtubetitle }
     */
 
@@ -43,7 +45,7 @@ export class StorageService {
         // getting all workouts from json and converting them into WorkoutData/VideoData objects
         let workouts = [];
           for (var exercise in exercises) {
-            let value = exercises[exercise]; 
+            let value = exercises[exercise];
 
             let videos = [];
 
@@ -54,7 +56,7 @@ export class StorageService {
             let workout = new WorkoutData(exercise, value[0], value[1], value[2], videos); // convert json into WorkoutData object
             workouts.push(workout); // push workout to list of workouts
           }
-          
+
           this.storage.set("workouts", workouts); // set workouts into storage
       }
     });
@@ -65,6 +67,44 @@ export class StorageService {
   async getWorkoutData(): Promise<WorkoutData> {
     return await this.storage.get('workouts').then( result => {
       return result;
+    });
+  }
+
+  async setCompletedWorkout(workout_id){
+    this.storage.set("completedWorkout", workout_id);
+  }
+
+  async getCompletedWorkout(): Promise<string>{
+    return await this.storage.get("completedWorkout");
+  }
+
+  async getExerciseFeedback(): Promise<Map<string, number>>{
+    return await this.storage.get("exerciseFeedback");
+  }
+
+  async addExerciseFeedback(workout_id, value){
+    this.storage.get("exerciseFeedback").then( result =>{
+      if (result.has(workout_id)){
+        result.set(workout_id, result.get(workout_id) + value);
+      }
+      else{
+        result.set(workout_id, value);
+      }
+      this.storage.set("exerciseFeedback", result);
+      console.log(result);
+    });
+  }
+
+  async getFitnessLevel(): Promise<string>{
+    return await this.storage.get("profile").then(result=>{
+      return result.fitnessLevel;
+    });
+  }
+
+  async setFitnessLevel(level){
+    this.storage.get("profile").then(profile =>{
+      profile.fitnessLevel = level;
+      this.storage.set("profile", profile);
     });
   }
 

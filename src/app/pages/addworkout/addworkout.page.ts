@@ -31,7 +31,7 @@ export class AddworkoutPage implements OnInit {
   public endDate:string;
   private days:{};
 
-  constructor(private storageService:StorageService, public toastController: ToastController) { 
+  constructor(private storageService:StorageService, public toastController: ToastController) {
     // assign default inputs for page
     this.showButton = true;
     this.route = "['/']";
@@ -57,15 +57,58 @@ export class AddworkoutPage implements OnInit {
         filteredWorkouts.push([workouts[workout].id, workouts[workout].name, workouts[workout].type]); // temp including name and type of workout
       }
     }
-    
 
+    let filtered:Map<string, number> = new Map();
+
+    for (let exercise in workouts){
+      if (this.focus.includes((workouts[exercise].type).toLowerCase())){
+        filtered.set(workouts[exercise].id, 0);
+      }
+    }
+
+    console.log(filtered);
+
+    // weighted feature vector
+    this.storageService.getExerciseFeedback().then( exerciseFeedback => {
+      for (let [exercise_id, score] of exerciseFeedback){
+        for (let [e_id, s] of filtered){
+          let similar = 0;
+          this.storageService.getWorkoutFromId(e_id).then( filter_workout =>{
+            this.storageService.getWorkoutFromId(exercise_id).then(feedback_workout=>{
+              for (var muscle in feedback_workout.muscleGroup){
+                if (filter_workout.muscleGroup.includes(feedback_workout.muscleGroup[muscle])){
+                  ++similar;
+                }
+              }
+              filtered.set(filter_workout.id, filtered.get(filter_workout.id) + 1.25 * similar);
+            });
+          });
+        }
+      }
+
+      for (let [exercise_id, score] of filtered){
+        if (exerciseFeedback.has(exercise_id)){
+          // FIXME: Adding this messes up ranking score.
+          // filtered.set(exercise_id, filtered.get(exercise_id) + exerciseFeedback.get(exercise_id));
+        }
+        else{
+          filtered.set(exercise_id, 5); // add weight to exercises not completed
+        }
+      }
+    });
+
+    // sort map
+    console.log(filtered);
+    // FIXME: not converting to correct array?
+    var t = Array.from(filtered);
+    console.log(t);
 
     let events = [];
     let date = new Date(); // new Date to get current date
     if (this.endDate != undefined) { // make sure user inputs endDate
       let end = new Date(this.endDate);
       while( !( (date.getDate() == end.getDate()) && (date.getMonth() == end.getMonth()) ) ) { // while date isn't end date
-      
+
         let day = this.days[date.getDay()];
         if(daysFree.includes(day)) { // if day in user's free days
           // choose workout based on selected focus
