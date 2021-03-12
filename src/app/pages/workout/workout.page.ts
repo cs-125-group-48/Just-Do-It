@@ -61,6 +61,7 @@ export class WorkoutPage implements OnInit {
       this.name = result.name;
       this.type = result.type;
       this.muscleGroup.push(result.muscleGroup);
+      console.log(this.muscleGroup);
 
       let videos = [];
       result.videos.forEach(video => {

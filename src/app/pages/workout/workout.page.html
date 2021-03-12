@@ -17,7 +17,8 @@
   <p><b>Sets:</b> {{ this.sets }}</p>
   <p><b>Rest Interval:</b> {{ this.rest }} minutes</p>
   <p><b>Focus:</b> {{ type }}</p>
-  <p><b>Muscle Groups:</b> {{ muscleGroup }}</p>
+  <p *ngFor="let muscle of muscleGroup"><b>Muscle Groups:
+    </b > {{ muscle }}</p>
   <!-- <h2>Duration: </h2> -->
 
   <div class="buttons">

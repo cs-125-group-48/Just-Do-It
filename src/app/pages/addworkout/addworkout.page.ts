@@ -78,7 +78,7 @@ export class AddworkoutPage implements OnInit {
               ++similar;
             }
           }
-          filtered.set(workouts[filtered_workout].id, 1.25 * similar);
+          filtered.set(workouts[filtered_workout].id, 1.25 * similar + score);
         }
       }
 
