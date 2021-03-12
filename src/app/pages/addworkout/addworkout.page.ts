@@ -43,91 +43,84 @@ export class AddworkoutPage implements OnInit {
   ngOnInit() {
   }
 
+  getWorkout(workouts, workout_id){
+    for (var workout in workouts){
+      if (workouts[workout].id === workout_id){
+        return workout;
+      }
+    }
+  }
+
   addWorkoutToStorage() {
   this.storageService.getWorkoutData().then( workouts => { // get workouts from storage
+    this.storageService.getExerciseFeedback().then( exerciseFeedback =>{
+      let daysFree = [];
+      // add information from add workout page to storage when function is called
+      this.form.forEach(item => (item["isChecked"]) ? daysFree.push(item["val"]) : ""); // store selected days free in array "daysFree"
+      this.storageService.setUserSchedule(daysFree, this.startTime, this.endTime, this.focus, this.endDate);
 
-    let daysFree = [];
-    // add information from add workout page to storage when function is called
-    this.form.forEach(item => (item["isChecked"]) ? daysFree.push(item["val"]) : ""); // store selected days free in array "daysFree"
-    this.storageService.setUserSchedule(daysFree, this.startTime, this.endTime, this.focus, this.endDate);
+      let filtered:Map<string, number> = new Map();
 
-    let filteredWorkouts = []; // to store workouts that only target the user's focus
-    for (var workout in workouts) {
-      if (this.focus.includes((workouts[workout].type).toLowerCase())) { // if workout type matches user's focus types
-        filteredWorkouts.push([workouts[workout].id, workouts[workout].name, workouts[workout].type]); // temp including name and type of workout
+      for (let exercise in workouts){
+        if (this.focus.includes((workouts[exercise].type).toLowerCase())){
+          filtered.set(workouts[exercise].id, 0);
+        }
       }
-    }
 
-    let filtered:Map<string, number> = new Map();
-
-    for (let exercise in workouts){
-      if (this.focus.includes((workouts[exercise].type).toLowerCase())){
-        filtered.set(workouts[exercise].id, 0);
-      }
-    }
-
-    console.log(filtered);
-
-    // weighted feature vector
-    this.storageService.getExerciseFeedback().then( exerciseFeedback => {
+      // feature vector - weighted similarity count for muscle targets
       for (let [exercise_id, score] of exerciseFeedback){
         for (let [e_id, s] of filtered){
-          let similar = 0;
-          this.storageService.getWorkoutFromId(e_id).then( filter_workout =>{
-            this.storageService.getWorkoutFromId(exercise_id).then(feedback_workout=>{
-              for (var muscle in feedback_workout.muscleGroup){
-                if (filter_workout.muscleGroup.includes(feedback_workout.muscleGroup[muscle])){
-                  ++similar;
-                }
-              }
-              filtered.set(filter_workout.id, filtered.get(filter_workout.id) + 1.25 * similar);
-            });
-          });
+          var similar = 0;
+          var filtered_workout = this.getWorkout(workouts, e_id);
+          var feedback_workout = this.getWorkout(workouts, exercise_id);
+          for (let muscle of workouts[feedback_workout].muscleGroup){
+            if (workouts[filtered_workout].muscleGroup.includes(muscle)){
+              ++similar;
+            }
+          }
+          filtered.set(workouts[filtered_workout].id, 1.25 * similar);
         }
       }
 
       for (let [exercise_id, score] of filtered){
-        if (exerciseFeedback.has(exercise_id)){
-          // FIXME: Adding this messes up ranking score.
-          // filtered.set(exercise_id, filtered.get(exercise_id) + exerciseFeedback.get(exercise_id));
-        }
-        else{
-          filtered.set(exercise_id, 5); // add weight to exercises not completed
+        if (!exerciseFeedback.has(exercise_id)){
+          filtered.set(exercise_id, score + 5); // add weight to exercises not completed
         }
       }
-    });
 
-    // sort map
-    console.log(filtered);
-    // FIXME: not converting to correct array?
-    var t = Array.from(filtered);
-    console.log(t);
+      var sortedWorkouts = Array.from(filtered).sort((a,b) => b[1] - a[1]);
 
-    let events = [];
-    let date = new Date(); // new Date to get current date
-    if (this.endDate != undefined) { // make sure user inputs endDate
-      let end = new Date(this.endDate);
-      while( !( (date.getDate() == end.getDate()) && (date.getMonth() == end.getMonth()) ) ) { // while date isn't end date
+      var i = 0
+      let events = [];
+      let date = new Date(); // new Date to get current date
+      if (this.endDate != undefined) { // make sure user inputs endDate
+        let end = new Date(this.endDate);
+        while( !( (date.getDate() == end.getDate()) && (date.getMonth() == end.getMonth()) ) ) { // while date isn't end date
 
-        let day = this.days[date.getDay()];
-        if(daysFree.includes(day)) { // if day in user's free days
-          // choose workout based on selected focus
-          let randomWorkout = filteredWorkouts[Math.floor(Math.random() * filteredWorkouts.length)]; // get random workout
+          let day = this.days[date.getDay()];
+          if(daysFree.includes(day)) { // if day in user's free days
+            // choose workout based on selected focus
+            let suggestedWorkout = this.getWorkout(workouts, sortedWorkouts[i][0]);
 
-          // add event on this day
-          let start = this.setDate(date, new Date(this.startTime));
-          let end = this.setDate(date, new Date(this.endTime));
-          let event = new EventData(randomWorkout[1], start, end, randomWorkout[2], randomWorkout[0]);
-          events.push(event);
+            // add event on this day
+            let start = this.setDate(date, new Date(this.startTime));
+            let end = this.setDate(date, new Date(this.endTime));
+            let event = new EventData(workouts[suggestedWorkout].name, start, end, workouts[suggestedWorkout].type, workouts[suggestedWorkout].id);
+            events.push(event);
+
+            ++i;
+            if (i == sortedWorkouts.length){
+              i = 0;
+            }
+          }
+          date.setDate(date.getDate() + 1); // increment date to next day
+          // console.log(date);
+          // }
         }
-        date.setDate(date.getDate() + 1); // increment date to next day
-        // console.log(date);
-        // }
       }
-    }
-    this.storageService.setEvents(events);
-    this.presentToast("Your schedule has been saved.");
-
+      this.storageService.setEvents(events);
+      this.presentToast("Your schedule has been saved.");
+      });
     });
   }
 
