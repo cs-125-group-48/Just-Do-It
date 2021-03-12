@@ -16,6 +16,7 @@ export class HomePage {
 
   public month:string;
   public day:string;
+  public route:string;
 
   private monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -29,16 +30,18 @@ export class HomePage {
   }
 
 
-  getNextWorkout() {
-    this.storageService.getEvents().then((result) => {
+  async getNextWorkout() {
+    await this.storageService.getEvents().then((result) => {
       // loop through and find first event that hasn't been completed yet
       // console.log(result);
       if (result == undefined) {
         this.workout = "Please schedule a workout routine";
         this.month = "";
         this.day = "";
+        this.route = "";
       }
       else {
+        this.route = '/workout/' + this.workoutId + '/' + this.eventId;
         for (var i=0; i<result.length; i++) {
           if (!result[i].completed) {
             this.workout = result[i].title;
@@ -57,6 +60,7 @@ export class HomePage {
           this.workout = "Please schedule a workout routine";
           this.month = "";
           this.day = "";
+          this.route = "";
         }
       }
     });
