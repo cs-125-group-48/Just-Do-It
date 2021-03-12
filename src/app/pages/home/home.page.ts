@@ -41,7 +41,6 @@ export class HomePage {
         this.route = "";
       }
       else {
-        this.route = '/workout/' + this.workoutId + '/' + this.eventId;
         for (var i=0; i<result.length; i++) {
           if (!result[i].completed) {
             this.workout = result[i].title;
@@ -54,6 +53,7 @@ export class HomePage {
             this.day = (date.getDate()).toLocaleString();
             break;
           }
+          this.route = '/workout/' + this.workoutId + '/' + this.eventId;
         }
         // all workouts completed
         if (i == result.length){

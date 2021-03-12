@@ -10,7 +10,6 @@ While we all are stuck inside our houses due to stay at home orders, we thought 
 
     npm install -g @angular/cli  # to install angular
     npm install -g ionic # to install ionic
-    npm install -g ionic-lab
 
 ### clone this repository
 
