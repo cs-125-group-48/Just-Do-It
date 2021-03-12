@@ -108,7 +108,7 @@ export class WorkoutPage implements OnInit {
     this.storageService.setCompletedWorkout(this.workoutId);
     this.storageService.getEvents().then(events => {
       // events.
-      events[parseInt(this.eventId)-1].completed = false;
+      events[parseInt(this.eventId)-1].completed = true;
       this.storageService.setEvents(events);
     });
     console.log("incomplete");
