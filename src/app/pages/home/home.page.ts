@@ -51,9 +51,11 @@ export class HomePage {
             let date = new Date(result[i].startTime);
             this.month = this.monthNames[(date.getMonth()).toLocaleString()];
             this.day = (date.getDate()).toLocaleString();
+
+            this.route = '/workout/' + this.workoutId + '/' + this.eventId;
             break;
           }
-          this.route = '/workout/' + this.workoutId + '/' + this.eventId;
+          
         }
         // all workouts completed
         if (i == result.length){
