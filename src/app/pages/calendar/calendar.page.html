@@ -6,14 +6,17 @@
   </ion-toolbar>
   
   <!-- <ion-navbar> -->
-    <ion-title>{{viewTitle}}</ion-title>
-    <ion-buttons end>
-        <button ion-button [disabled]="isToday" (click)="today()">Today</button>
-        <button ion-button (click)="changeMode('month')">M</button>
-        <button ion-button (click)="changeMode('week')">W</button>
-        <button ion-button (click)="changeMode('day')">D</button>
-        <button ion-button (click)="loadEvents()">Load Events</button>
-    </ion-buttons>
+    <div class="month">
+      <ion-title>{{viewTitle}}</ion-title>
+      <ion-buttons class="buttons">
+          <ion-button ion-button [disabled]="isToday" (click)="today()">Today</ion-button>
+          <ion-button ion-button (click)="changeMode('month')">M</ion-button>
+          <ion-button ion-button (click)="changeMode('week')">W</ion-button>
+          <ion-button ion-button (click)="changeMode('day')">D</ion-button>
+          <ion-button [routerLink]="['/exercises']">Add Exercise</ion-button>
+          <!-- <button ion-button (click)="loadEvents()">Load Events</button> -->
+      </ion-buttons>
+    </div>
   <!-- </ion-navbar> -->
 </ion-header>
 
@@ -23,9 +26,9 @@
       <ion-title size="large">Calendar</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-button [routerLink]="['/exercises']">Add Exercise</ion-button>
 
-  <calendar [eventSource]="eventSource"
+
+  <!-- <calendar [eventSource]="eventSource"
     [calendarMode]="calendar.mode"
     [currentDate]="calendar.currentDate"
     (onCurrentDateChanged)="onCurrentDateChanged($event)"
@@ -34,8 +37,13 @@
     (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)"
     step="30">
+  </calendar> -->
+
+  <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+    (onCurrentDateChanged)="onCurrentDateChanged($event)" (onRangeChanged)="reloadSource(startTime, endTime)"
+    (onEventSelected)="onEventSelected($event)" (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)" step="30" (showEventDetail)="true" formatDayHeader="EEEEE"
+    allDayLabel="All Day" startHour="9" endHour="20">
   </calendar>
-  
-  <!-- <calendar></calendar> -->
 
 </ion-content>

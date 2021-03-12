@@ -6,6 +6,11 @@ export class EventData {
     public endTime:Date;
     public type:string;
     public workoutid:string;
+    public completed:boolean;
+    public id;
+
+    static id = 0; // temp way to create id maybe change later
+    _id = ++EventData.id; // increment class id
 
     constructor(title:string, startTime:Date, endTime:Date, type:string, workoutid:string) {
         this.title = title;
@@ -13,5 +18,7 @@ export class EventData {
         this.endTime = endTime;
         this.type = type;
         this.workoutid = workoutid;
+        this.completed = false;
+        this.id = this._id;
     }
 }

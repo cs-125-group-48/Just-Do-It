@@ -7,13 +7,18 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-card [title]="'Next Suggested Workout'" [subtitle]="'Arms'" [image]="'assets/images/arm.png'" [router]="'/workout'"></app-card>
+  <h1>Welcome back {{ name }}!</h1>
+  <!-- <app-card [title]="'Next Suggested Workout'" [subtitle]="'Arms'" [image]="'assets/images/arm.png'" [router]="'/workout'"></app-card> -->
+  <app-card [title]="'Next Suggested Workout'" [subtitle]="workout" [router]="'/workout/' + workoutId + '/' + eventId"></app-card>
   <!-- <app-card [title]="'Workout Log'" [subtitle]="''" [image]="''" [router]="['/workout']"></app-card> -->
   <ion-button [routerLink]="'/addworkout'">Schedule New Workout Routine</ion-button>
   <!-- <app-card [title]="'Exercises'" [image]="'assets/images/dumbbell.jpg'" [router]="'/exercises'"></app-card> -->

@@ -3,6 +3,8 @@
 import { Component } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { ProfileData } from '../../data/ProfileData';
+import { Health } from '@ionic-native/health/ngx';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -16,10 +18,12 @@ export class ProfilePage {
   public weight:string;
   public height:string;
   public fitnessLevel:string;
+  public steps:string;
+  public calories:string;
 
   public profile:ProfileData;
 
-  constructor(private storageService:StorageService) { 
+  constructor(private storageService:StorageService, private health:Health, private plt:Platform) { 
     this.service = storageService; // access storage
 
     this.service.getUserProfile().then((result) => {
@@ -29,7 +33,11 @@ export class ProfilePage {
       this.weight = result.weight;
       this.height = result.height;
       this.fitnessLevel = result.fitnessLevel;
-    })
+    });
+  }
+
+  ionViewWillEnter() { // since tabs say cached, this functions makes sure the following will be run every time the page loads
+    this.getHealthData(); // requeries to get new live health data
   }
   
 
@@ -51,5 +59,45 @@ export class ProfilePage {
       return age;
   }
 
+  getHealthData() { // get health data from google fit api
+    this.plt.ready().then(() => { // wait for platform to be loaded in before checking health stats
 
+      this.health.isAvailable().then(available => { // check if Google fit API accessible
+        if (available) {
+          this.health.requestAuthorization([ // request access to Google fit data
+            "distance",
+            {
+              read: ["steps", "calories"], 
+              write: [], 
+            },
+          ])
+          .then(res => console.log("Response " + res))
+          .catch(e => console.log("Error " + e));
+
+          let start = new Date(new Date().setHours(0, 0, 0, 0)); // get beginning of day
+          console.log("Start of day: " + start);
+
+          this.queryHealthData('steps');
+          this.queryHealthData('calories');
+
+        }
+      })
+
+    });
+  }
+
+  queryHealthData(type:string) {
+    this.health.queryAggregated({ // query to get step data
+      startDate: new Date(new Date().setHours(0, 0, 0, 0)), // beginning of day
+      endDate: new Date(), // now
+      dataType: type,
+      bucket: 'day'
+    })
+    .then(entries => {
+      console.log(entries);
+      if (type === "steps") { this.steps = entries[0].value; }
+      else if (type === "calories") { this.calories = (Math.round(parseInt(entries[0].value))).toLocaleString(); }
+    })
+    .catch(e => console.log("Error: " + e));
+  }
 }

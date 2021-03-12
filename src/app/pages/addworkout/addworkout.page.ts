@@ -4,6 +4,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { ToastController } from '@ionic/angular';
 import { EventData } from 'src/app/data/EventData';
+import { HomePage } from 'src/app/pages/home/home.page';
 
 @Component({
   selector: 'app-addworkout',
@@ -86,6 +87,7 @@ export class AddworkoutPage implements OnInit {
     this.presentToast("Your schedule has been saved.");
 
     });
+    HomePage.change = !HomePage.change;
   }
 
   async presentToast(message:string) {

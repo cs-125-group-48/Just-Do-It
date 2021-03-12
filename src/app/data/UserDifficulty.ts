@@ -13,7 +13,7 @@ export class UserDifficulty {
         var d : number = 0.0;
         switch(fitnessLevel){
             case "7":{ //"Highly Active"
-                d = 7.5;
+                d = 7;
                 break;
             }
             case "5":{ // "Regularly Active"
@@ -21,7 +21,7 @@ export class UserDifficulty {
                 break;
             }
             case "1":{ // "Rarely Active"
-                d = 2.5;
+                d = 3;
                 break;
             }
         }

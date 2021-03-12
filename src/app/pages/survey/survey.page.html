@@ -9,7 +9,7 @@
 
     
     <ion-slide>
-      <h2>Basic Information</h2>
+      <h2>Basic information</h2>
       <ion-item>
         <ion-label>Name</ion-label>
         <ion-input [(ngModel)]="name"  slot="end" placeholder="First Name"></ion-input>
@@ -36,38 +36,36 @@
     <ion-slide>
       <h2>Developing your fitness level</h2>
       <b>How active are you?</b>
-      <ion-radio-group  [(ngModel)]="active">
-        <ion-row>
-          <ion-col>
-               <ion-item>
-                  <ion-label>Highly Active</ion-label>
-                  <ion-radio mode="md" item-left value="7"></ion-radio>
-             </ion-item>
-           </ion-col>
       
-          <ion-col>
-              <ion-item>
-                  <ion-label>Regularly Active</ion-label>
-                  <ion-radio mode="md" item-left value="5"></ion-radio>
-             </ion-item>
-          </ion-col>
-      
-          <ion-col>
-              <ion-item>
-                  <ion-label>Rarely Active</ion-label>
-                  <ion-radio mode="md" item-left value="1"></ion-radio>
-             </ion-item>
-          </ion-col>
-      
-      </ion-row>
-      </ion-radio-group>
+        <ion-radio-group  [(ngModel)]="active">
+
+
+          <ion-item>
+                <ion-label>Highly Active</ion-label>
+                <ion-radio mode="md" item-left value="7"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+                <ion-label>Regularly Active</ion-label>
+                <ion-radio mode="md" item-left value="5"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+                <ion-label>Rarely Active</ion-label>
+                <ion-radio mode="md" item-left value="1"></ion-radio>
+          </ion-item>
+
+
+        </ion-radio-group>
+
     </ion-slide>
 
-    <ion-slide>
+    <!-- <ion-slide>
+      <h1>Schedule a workout</h1>
       <ion-content class="addworkout">
         <app-addworkout [showButton]="false" [route]="[]"></app-addworkout>
       </ion-content>
-    </ion-slide>
+    </ion-slide> -->
 
 
     <ion-slide>

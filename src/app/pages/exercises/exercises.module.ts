@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ExercisesPageRoutingModule } from './exercises-routing.module';
 
 import { ExercisesPage } from './exercises.page';
+import { ExerciseInfoModalComponent } from 'src/app/pages/exercise-info-modal/exercise-info-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ExercisesPage } from './exercises.page';
     IonicModule,
     ExercisesPageRoutingModule
   ],
-  declarations: [ExercisesPage]
+  declarations: [ExercisesPage, ExerciseInfoModalComponent],
+  entryComponents: [ExerciseInfoModalComponent]
 })
 export class ExercisesPageModule {}
