@@ -1,9 +1,10 @@
 // Workout Page: Page that contains the users current workout to be completed (with video)
 
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute , NavigationExtras} from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workout',
@@ -13,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class WorkoutPage implements OnInit {
   public workoutId:string; // workoutid
   public eventId:string;
+  public videoId:number; // if we ever use more than 1 vid per workout
 
   // to display on workoutpage
   public name:string;
@@ -26,9 +28,13 @@ export class WorkoutPage implements OnInit {
   public safeUrl; // temp single video
   public video;
 
-  constructor(private route:ActivatedRoute, private storageService:StorageService,private sanitizer: DomSanitizer) {
+  constructor(private route:ActivatedRoute, 
+      private router:Router,
+      private storageService:StorageService,
+      private sanitizer: DomSanitizer) {
     this.workoutId = this.route.snapshot.paramMap.get('workoutId'); // get workout id from route it was sent to
     this.eventId = this.route.snapshot.paramMap.get('eventId'); // get event id from route it was sent to
+    this.muscleGroup = [];
 
     this.getWorkout();
     this.getEvent();
@@ -54,13 +60,14 @@ export class WorkoutPage implements OnInit {
     this.storageService.getWorkoutFromId(this.workoutId).then(result => {
       this.name = result.name;
       this.type = result.type;
-      this.muscleGroup = result.muscleGroup;
+      this.muscleGroup.push(result.muscleGroup);
 
       let videos = [];
       result.videos.forEach(video => {
         videos.push(video.url);
       });
       this.video = videos[0];
+      this.videoId = 0;
     });
   }
 
@@ -83,6 +90,16 @@ export class WorkoutPage implements OnInit {
       this.storageService.setEvents(events);
     });
     console.log("marked event as complete");
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        workoutId: this.workoutId,
+        eventId: this.eventId,
+        videoId: this.videoId
+      }
+    };
+
+    this.router.navigate(['feedback'], navigationExtras);
   }
 
   // FIXME: completed needs to be false
@@ -90,7 +107,7 @@ export class WorkoutPage implements OnInit {
     this.storageService.setCompletedWorkout(this.workoutId);
     this.storageService.getEvents().then(events => {
       // events.
-      events[parseInt(this.eventId)-1].completed = true;
+      events[parseInt(this.eventId)-1].completed = false;
       this.storageService.setEvents(events);
     });
     console.log("incomplete");

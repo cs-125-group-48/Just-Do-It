@@ -8,9 +8,11 @@ export class VideoData {
     public name:string;
     public url:string;
     public description:string;
+    public difficulty:number;
 
     constructor(name:string, url:string) {
 		this.setVideo(name, url);
+    this.difficulty = 5; // default difficulty
     }
     setVideo(name:string, url:string) {
         this.id = generate();

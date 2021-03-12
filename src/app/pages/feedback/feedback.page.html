@@ -6,8 +6,15 @@
 </ion-header>
 
 <ion-content>
-  <h1>How was the difficulty?</h1>
+  <h1>How was your workout?</h1>
 
+  <h2 style="font-size:16px;">Assessing the difficulty: Rest for 10 seconds, and count the number of beats your heart makes</h2>
+  <ion-input type="number"  
+    placeholder="Enter heartbeats"
+    [(ngModel)]="heartBeats">
+  </ion-input>
+
+  <h2 style="font-size:16px;">For future workouts like this: </h2>
   <ion-radio-group  [(ngModel)]="feedback">
     <ion-item>
         <ion-label>Increase the difficulty!</ion-label>
@@ -25,7 +32,7 @@
     </ion-item>
   </ion-radio-group>
 
-  <h1>Did you like this exercise?</h1>
+  <h2 style="font-size:16px;">Did you like this exercise?</h2>
   <ion-radio-group  [(ngModel)]="exerciseFeedback">
     <ion-item>
         <ion-label>No</ion-label>
@@ -43,7 +50,7 @@
     </ion-item>
   </ion-radio-group>
 
-  <ion-button expand="block" (click)="submit()" [routerLink]="['/']" color="success">
+  <ion-button expand="block" (click)="click()" [routerLink]="['/']" color="success">
     <!-- TODO: add feedback page (also check heart rate) to adjust difficulty level later -->
     <ion-icon name="checkmark"></ion-icon>
   </ion-button>

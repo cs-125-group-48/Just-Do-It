@@ -10,10 +10,12 @@ export class WorkoutData {
     public muscleGroup:string; // list muscles that the workout targets
     public description:string; // description of workout
     public videos:Array<VideoData>; // list of youtube links to workouts
+    public difficulty:number; // difficulty of workout (until vids get difficulty)
 
     constructor(name:string, type:string, muscleGroup:string, description:string, videos:any[]) {
         this.videos = [];
 		this.setWorkout(name, type, muscleGroup, description, videos)
+        this.difficulty = 5;
     }
 
     setWorkout(name:string, type:string, muscleGroup:string, description:string, videos:any[]) {

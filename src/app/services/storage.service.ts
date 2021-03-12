@@ -6,6 +6,8 @@ import { Storage } from '@ionic/storage';
 import { ProfileData } from 'src/app/data/ProfileData';
 import { WorkoutData } from 'src/app/data/WorkoutData';
 import { ScheduleData } from 'src/app/data/ScheduleData';
+import { EventData } from 'src/app/data/EventData'; 
+import { UserDifficulty } from 'src/app/data/UserDifficulty';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,12 @@ export class StorageService {
     let profile = new ProfileData();
     profile.updateProfile(name, birthdate, weight, height, fitnessLevel);
     this.storage.set('profile', profile); // store in storage
+
+    this.storage.get("user_difficulty").then(data=>
+      { // will reset if profile is reset
+        let user_difficulty = new UserDifficulty(fitnessLevel);
+        this.storage.set('user_difficulty', user_difficulty);
+      });
   }
 
   async getUserProfile():Promise<ProfileData> {
@@ -64,12 +72,6 @@ export class StorageService {
 
   }
 
-  async getWorkoutData(): Promise<WorkoutData> {
-    return await this.storage.get('workouts').then( result => {
-      return result;
-    });
-  }
-
   async setCompletedWorkout(workout_id){
     this.storage.set("completedWorkout", workout_id);
   }
@@ -108,7 +110,14 @@ export class StorageService {
     });
   }
 
-  async getWorkoutFromId(id:string) {
+
+  async getWorkoutData(): Promise<Array<WorkoutData>> {
+    return await this.storage.get('workouts').then( result => {
+      return result;
+    });
+  }
+
+  async getWorkoutFromId(id:string): Promise<WorkoutData> {
     console.log()
     return await this.storage.get('workouts').then( result => {
       for (let i=0; i<result.length; i++) {
@@ -116,6 +125,17 @@ export class StorageService {
           return result[i]; // if id matches id in workout return that workout
         }
       };
+    });
+  }
+
+  async updateWorkout(id:string, newWorkout:WorkoutData){
+    this.storage.get('workouts').then( workouts => {
+      for (var workout in workouts){
+        if (workouts[workout].id == id){
+          workouts[workout] = newWorkout;
+        }
+      }
+      this.storage.set('workouts', workouts);
     });
   }
 
@@ -128,8 +148,29 @@ export class StorageService {
     this.storage.set("events", events);
   }
 
-  async getEvents() {
+  async getEvents() :Promise<Array<EventData>>{
     return await this.storage.get("events");
+  }
+
+  async getEventFromId(eventId:string): Promise<EventData>{
+    return await this.storage.get("events").then(events =>{
+      for (var event in events){
+        if (events[event].id == eventId){
+          return events[event];
+        }
+      }
+    });
+  }
+
+
+  // separate difficulty for each muscle-group
+  async updateUserDifficulty(difficulty: UserDifficulty){
+    // update user-difficulty levels [tracks difficulty for each muscle group]
+    this.storage.set('user_difficulty', difficulty);
+  }
+
+  async getUserDifficulty():Promise<UserDifficulty> {
+    return await this.storage.get('user_difficulty');
   }
 
 }
